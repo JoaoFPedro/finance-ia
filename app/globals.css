@@ -79,3 +79,23 @@ body {
     @apply h-full bg-background text-foreground;
   }
 }
+
+.theme-toggle-button {
+  position: fixed;
+  right: 1rem;
+  /* padding: 0.5rem; */
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  color: var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.theme-toggle-button:hover {
+  transform: scale(1.1); /* Pequeno zoom ao passar o mouse */
+}
+
+.theme-toggle-button:focus {
+  outline: 2px solid var(--text-color);
+}
