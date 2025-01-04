@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ToggleThemeButton from "./_components/toggleButton";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,8 +31,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ToggleThemeButton />
-        {children}
+        <ClerkProvider appearance={{ baseTheme: dark }}>
+          <ToggleThemeButton />
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
