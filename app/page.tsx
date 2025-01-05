@@ -1,5 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import { dark } from "@clerk/themes";
 import { redirect } from "next/navigation";
 
 const Home = async () => {
@@ -11,7 +12,7 @@ const Home = async () => {
   return (
     <>
       <h1>Hello World</h1>
-      <UserButton showName />
+      <UserButton showName appearance={{ baseTheme: dark }} />
     </>
   );
 };

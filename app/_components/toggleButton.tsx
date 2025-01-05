@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MdToggleOn, MdToggleOff } from "react-icons/md"; // Ícones de toggle
+import { MdToggleOn, MdToggleOff } from "react-icons/md";
 
 export default function ToggleThemeButton() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
