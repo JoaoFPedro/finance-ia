@@ -23,6 +23,7 @@ model Transactions {
   updatedAt     DateTime                  @updatedAt
   paymentMethod TransactionsPaymentMethod
   date          DateTime
+  userId String
 }
 
 enum TransactionsType {
