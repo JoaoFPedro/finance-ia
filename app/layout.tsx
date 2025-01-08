@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ToggleThemeButton from "./_components/toggleButton";
+// import ToggleThemeButton from "./_components/toggleButton";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Mulish } from "next/font/google";
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${mulish.className} antialiased`}>
         <ClerkProvider appearance={{ baseTheme: dark }}>
-          <ToggleThemeButton />
+          {/* <ToggleThemeButton />  botão que altera o tema entre claro e escuro*/}
           {children}
         </ClerkProvider>
       </body>
