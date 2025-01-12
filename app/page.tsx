@@ -7,6 +7,7 @@ const Home = async () => {
   const { userId } = await auth();
 
   if (!userId) {
+    console.log("userid", userId);
     redirect("/login");
   }
   return (
