@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/app/_components/ui/badge";
 import {
   Transactions,
   TransactionsCategory,
@@ -7,6 +8,7 @@ import {
   TransactionsType,
 } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
+import { CircleIcon } from "lucide-react";
 
 export const transactionsColumns: ColumnDef<Transactions>[] = [
   {
@@ -17,13 +19,18 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
     accessorKey: "type",
     header: "Tipo",
     cell: ({ row: { original: transaction } }) => {
-      return transaction.type === TransactionsType.DEPOSIT
-        ? "Depósito"
-        : transaction.type === TransactionsType.EXPENSE
-          ? "Despesa"
-          : transaction.type === TransactionsType.INVESTMENT
-            ? "Investimento"
-            : "Tipo desconhecido";
+      return transaction.type === TransactionsType.DEPOSIT ? (
+        <Badge className="bg-muted font-bold text-primary hover:bg-muted">
+          <CircleIcon className="mr-2 fill-primary" size={10} />
+          Depósito
+        </Badge>
+      ) : transaction.type === TransactionsType.EXPENSE ? (
+        "Despesa"
+      ) : transaction.type === TransactionsType.INVESTMENT ? (
+        "Investimento"
+      ) : (
+        "Tipo desconhecido"
+      );
     },
   },
   {
