@@ -31,7 +31,7 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
         </Badge>
       ) : transaction.type === TransactionsType.INVESTMENT ? (
         <Badge className="text-white-600 bg-muted font-bold hover:bg-muted">
-          <CircleIcon className="fill-white-600 mr-2" size={10} />
+          <CircleIcon className="mr-2 fill-white" size={10} />
           Investimento
         </Badge>
       ) : (
