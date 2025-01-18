@@ -25,9 +25,15 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
           Depósito
         </Badge>
       ) : transaction.type === TransactionsType.EXPENSE ? (
-        "Despesa"
+        <Badge className="bg-muted font-bold text-red-600 hover:bg-muted">
+          <CircleIcon className="mr-2 fill-red-600" size={10} />
+          Gasto
+        </Badge>
       ) : transaction.type === TransactionsType.INVESTMENT ? (
-        "Investimento"
+        <Badge className="text-white-600 bg-muted font-bold hover:bg-muted">
+          <CircleIcon className="fill-white-600 mr-2" size={10} />
+          Investimento
+        </Badge>
       ) : (
         "Tipo desconhecido"
       );
@@ -77,14 +83,14 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
     },
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: "Data",
     cell: ({ row: { original: transaction } }) => {
-      const formattedDate = new Date(transaction.date).toLocaleDateString(
+      const formattedDate = new Date(transaction.createdAt).toLocaleDateString(
         "pt-BR",
         {
           day: "2-digit",
-          month: "2-digit",
+          month: "long",
           year: "numeric",
         },
       );
@@ -94,5 +100,13 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
   {
     accessorKey: "amount",
     header: "Valor",
+    cell: ({ row: { original: transaction } }) => {
+      const amount = Number(transaction.amount); // Garantir que é um número
+      const formattedAmount = amount.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      return formattedAmount;
+    },
   },
 ];
