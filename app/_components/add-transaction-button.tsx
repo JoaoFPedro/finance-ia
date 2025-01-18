@@ -35,7 +35,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { TRANSACTION_TYPE_OPTIONS } from "../_constants/transactions";
+import {
+  TRANSACTION_TYPE_OPTIONS,
+  TRANSACTIONS_CATEGORY_OPTIONS,
+  TRANSACTIONS_PAYMENTMETHOD_OPTIONS,
+} from "../_constants/transactions";
+
+import { DatePicker } from "./ui/date-picker";
 
 const formSchema = z.object({
   username: z.string().trim().min(1, {
@@ -64,96 +70,170 @@ const AddTransactionButton = () => {
     defaultValues: {
       username: "",
       amount: 0,
+      date: new Date(),
     },
   });
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="rounded-full text-sm">
-          Adicionar Transação
-          <ArrowDownUpIcon />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Adicionar Transação</DialogTitle>
-          <DialogDescription>Insira as informações abaixo</DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Digite o nome da transação..."
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Valor</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Digite o valor da transação..."
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tipo</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+    <div className="overflow-y-auto">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="rounded-full text-sm">
+            Adicionar Transação
+            <ArrowDownUpIcon />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Adicionar Transação</DialogTitle>
+            <DialogDescription>Insira as informações abaixo</DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nome</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o tipo..." />
-                      </SelectTrigger>
+                      <Input
+                        placeholder="Digite o nome da transação..."
+                        {...field}
+                      />
                     </FormControl>
-                    <SelectContent>
-                      {TRANSACTION_TYPE_OPTIONS.map((options) => {
-                        return (
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Valor</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Digite o valor da transação..."
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o tipo..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {TRANSACTION_TYPE_OPTIONS.map((options) => {
+                          return (
+                            <SelectItem
+                              key={options.value}
+                              value={options.value}
+                            >
+                              {options.label}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o tipo..." />
+                        </SelectTrigger>
+                      </FormControl>
+
+                      <SelectContent>
+                        {TRANSACTIONS_CATEGORY_OPTIONS.map((options) => (
                           <SelectItem key={options.value} value={options.value}>
                             {options.label}
                           </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="paymentMethod"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Método de pagamento</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o método de pagamento..." />
+                        </SelectTrigger>
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="mt-4 flex justify-end">
-              <Button variant="outline">Cancelar</Button>
-              <Button>Adicionar</Button>
-            </div>
-          </form>
-        </Form>
-        <DialogFooter></DialogFooter>
-      </DialogContent>
-    </Dialog>
+                      <SelectContent>
+                        {TRANSACTIONS_PAYMENTMETHOD_OPTIONS.map((options) => (
+                          <SelectItem key={options.value} value={options.value}>
+                            {options.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Data</FormLabel>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="mt-4 flex justify-end">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Adicionar</Button>
+              </div>
+            </form>
+          </Form>
+          <DialogFooter></DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
