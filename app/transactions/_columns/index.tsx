@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/app/_components/ui/badge";
+import { Button } from "@/app/_components/ui/button";
 import {
   Transactions,
   TransactionsCategory,
@@ -8,7 +9,7 @@ import {
   TransactionsType,
 } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { CircleIcon } from "lucide-react";
+import { CircleIcon, PencilIcon, TrashIcon } from "lucide-react";
 
 export const transactionsColumns: ColumnDef<Transactions>[] = [
   {
@@ -107,6 +108,22 @@ export const transactionsColumns: ColumnDef<Transactions>[] = [
         currency: "BRL",
       });
       return formattedAmount;
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "",
+    cell: () => {
+      return (
+        <div className="space-x-1">
+          <Button size="icon" variant="ghost" className="text-muted-foreground">
+            <PencilIcon />
+          </Button>
+          <Button size="icon" variant="ghost" className="text-muted-foreground">
+            <TrashIcon />
+          </Button>
+        </div>
+      );
     },
   },
 ];
