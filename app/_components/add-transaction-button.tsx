@@ -42,6 +42,7 @@ import {
 } from "../_constants/transactions";
 
 import { DatePicker } from "./ui/date-picker";
+import { MoneyInput } from "./money-input";
 
 const formSchema = z.object({
   username: z.string().trim().min(1, {
@@ -114,7 +115,7 @@ const AddTransactionButton = () => {
                   <FormItem>
                     <FormLabel>Valor</FormLabel>
                     <FormControl>
-                      <Input
+                      <MoneyInput
                         placeholder="Digite o valor da transação..."
                         {...field}
                       />
