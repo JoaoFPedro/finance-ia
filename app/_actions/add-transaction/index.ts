@@ -3,37 +3,36 @@
 import { db } from "@/app/_lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import {
-  Prisma /*TransactionsCategory, TransactionsPaymentMethod, TransactionsType */,
+  TransactionsCategory,
+  TransactionsPaymentMethod,
+  TransactionsType,
 } from "@prisma/client";
-import { Omit } from "@prisma/client/runtime/library";
-import { AddTransactionSchema } from "./schema";
 import { revalidatePath } from "next/cache";
+import { AddTransactionSchema } from "./schema";
 
-/* 
-#It is also possible to create own interface
-
-interface AddTransactionsParams {
-    name: string;
-    amount: number;
-    type: TransactionsType;
-    category: TransactionsCategory;
-    paymentMethod: TransactionsPaymentMethod
-    date: Date;
-
+interface UpsertTransactionParams {
+  id?: string;
+  name: string;
+  amount: number;
+  type: TransactionsType;
+  category: TransactionsCategory;
+  paymentMethod: TransactionsPaymentMethod;
+  date: Date;
 }
 
-*/
-
-export const addTransaction = async (
-  params: Omit<Prisma.TransactionsCreateInput, "userId">,
-) => {
+export const upsertTransaction = async (params: UpsertTransactionParams) => {
   AddTransactionSchema.parse(params);
+  console.log("Params", params);
   const { userId } = await auth();
   if (!userId) {
-    throw new Error("Sem permissão");
+    throw new Error("Unauthorized");
   }
-  await db.transactions.create({
-    data: { ...params, userId },
+  await db.transactions.upsert({
+    where: {
+      id: params.id,
+    },
+    update: { ...params, userId },
+    create: { ...params, userId },
   });
   revalidatePath("/transactions");
 };
