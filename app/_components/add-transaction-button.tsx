@@ -44,16 +44,22 @@ import {
 import { DatePicker } from "./ui/date-picker";
 import { MoneyInput } from "./money-input";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { addTransaction } from "../_actions/add-transaction";
+import { useState } from "react";
 
 type FormSchema = z.infer<typeof formSchema>;
 
 const formSchema = z.object({
-  username: z.string().trim().min(1, {
+  name: z.string().trim().min(1, {
     message: "O nome é obrigatório",
   }),
-  amount: z.string({
-    required_error: "O valor é obrigatório",
-  }),
+  amount: z
+    .number({
+      required_error: "O valor é obrigatório.",
+    })
+    .positive({
+      message: "O valor deve ser positivo.",
+    }),
   type: z.nativeEnum(TransactionsType, {
     required_error: "O tipo é obrigatória",
   }),
@@ -67,28 +73,33 @@ const formSchema = z.object({
     required_error: "A data é obrigatória",
   }),
 });
-const onSubmit = (data: FormSchema) => {
-  console.log("DATA**", data);
-};
+
 const AddTransactionButton = () => {
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar o diálogo
+
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      await addTransaction(data);
+      setIsOpen(false);
+    } catch (error) {
+      console.log("Post Error:", error);
+    }
+  };
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      amount: undefined,
+      amount: 50,
+      category: TransactionsCategory.OTHER,
       date: new Date(),
+      name: "",
+      paymentMethod: TransactionsPaymentMethod.CASH,
+      type: TransactionsType.EXPENSE,
     },
   });
 
   return (
     <div className="overflow-y-auto">
-      <Dialog
-        onOpenChange={(open) => {
-          if (!open) {
-            form.reset();
-          }
-        }}
-      >
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="rounded-full text-sm">
             Adicionar Transação
@@ -104,7 +115,7 @@ const AddTransactionButton = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="username"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nome</FormLabel>
