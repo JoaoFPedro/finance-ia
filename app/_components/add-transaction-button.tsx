@@ -43,13 +43,16 @@ import {
 
 import { DatePicker } from "./ui/date-picker";
 import { MoneyInput } from "./money-input";
+import { DialogClose } from "@radix-ui/react-dialog";
+
+type FormSchema = z.infer<typeof formSchema>;
 
 const formSchema = z.object({
   username: z.string().trim().min(1, {
     message: "O nome é obrigatório",
   }),
-  amount: z.number({
-    message: "O valor é obrigatório",
+  amount: z.string({
+    required_error: "O valor é obrigatório",
   }),
   type: z.nativeEnum(TransactionsType, {
     required_error: "O tipo é obrigatória",
@@ -64,20 +67,28 @@ const formSchema = z.object({
     required_error: "A data é obrigatória",
   }),
 });
-const onSubmit = () => {};
+const onSubmit = (data: FormSchema) => {
+  console.log("DATA**", data);
+};
 const AddTransactionButton = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-      amount: 0,
+      amount: undefined,
       date: new Date(),
     },
   });
 
   return (
     <div className="overflow-y-auto">
-      <Dialog>
+      <Dialog
+        onOpenChange={(open) => {
+          if (!open) {
+            form.reset();
+          }
+        }}
+      >
         <DialogTrigger asChild>
           <Button className="rounded-full text-sm">
             Adicionar Transação
@@ -160,17 +171,17 @@ const AddTransactionButton = () => {
               />
               <FormField
                 control={form.control}
-                name="type"
+                name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Tipo</FormLabel>
+                    <FormLabel>Categoria</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Selecione o tipo..." />
+                          <SelectValue placeholder="Selecione a categoria..." />
                         </SelectTrigger>
                       </FormControl>
 
@@ -225,10 +236,10 @@ const AddTransactionButton = () => {
                   </FormItem>
                 )}
               />
-              <div className="mt-4 flex justify-end">
+              <DialogClose asChild>
                 <Button variant="outline">Cancelar</Button>
-                <Button>Adicionar</Button>
-              </div>
+              </DialogClose>
+              <Button type="submit">Adicionar</Button>
             </form>
           </Form>
           <DialogFooter></DialogFooter>
