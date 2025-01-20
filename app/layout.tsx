@@ -26,7 +26,6 @@ export default function RootLayout({
         <ClerkProvider appearance={{ baseTheme: dark }}>
           <Header />
 
-          {/* <ToggleThemeButton />  botão que altera o tema entre claro e escuro*/}
           {children}
         </ClerkProvider>
       </body>
