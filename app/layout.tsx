@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Mulish } from "next/font/google";
+import Header from "./_components/header";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -23,6 +24,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${mulish.className} dark antialiased`}>
         <ClerkProvider appearance={{ baseTheme: dark }}>
+          <Header />
+
           {/* <ToggleThemeButton />  botão que altera o tema entre claro e escuro*/}
           {children}
         </ClerkProvider>
