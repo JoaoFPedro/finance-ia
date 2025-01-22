@@ -12,18 +12,15 @@ export default function ToggleThemeButton() {
       "(prefers-color-scheme: dark)",
     ).matches;
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
-
     setTheme(initialTheme);
     document.documentElement.classList.add(initialTheme);
   }, []);
-
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     document.documentElement.classList.replace(theme, newTheme);
     localStorage.setItem("theme", newTheme);
   };
-
   return (
     <button
       onClick={toggleTheme}
