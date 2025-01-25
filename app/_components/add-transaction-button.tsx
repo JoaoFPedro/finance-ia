@@ -6,7 +6,7 @@ import { ArrowDownUpIcon } from "lucide-react";
 import UpsertTransaction from "./upsert-transaction-dialog";
 
 const AddTransactionButton = () => {
-  const [dialogIsOpen, setdialogIsOpen] = useState(false); // Estado para controlar o diálogo
+  const [dialogIsOpen, setdialogIsOpen] = useState(false);
 
   return (
     <div>
