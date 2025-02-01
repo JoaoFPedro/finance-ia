@@ -10,19 +10,19 @@ const Header = () => {
   return (
     <>
       <nav className="flex justify-between p-4">
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-5">
           <Image src="/logo.png" alt="Finance AI" height={36} width={36} />
-          <h1 className="text-center text-2xl font-bold">finance.ai</h1>
-          <Link href="/"> Dashboard</Link>
-          <Link href="/transactions"> Transações</Link>
-          <Link href="/subscriber"> Assinatura</Link>
+          <h1 className="-ml-3 text-2xl font-bold">finance.ai</h1>
+          <div className="space-x-4">
+            <Link href="/"> Dashboard</Link>
+            <Link href="/transactions"> Transações</Link>
+            <Link href="/subscriber"> Assinatura</Link>
+          </div>
         </div>
 
-        <div className="flex gap-12">
+        <div className="mr-12 flex">
           <UserButton showName appearance={{ baseTheme: dark }} />
-          <div className="">
-            <ToggleThemeButton />
-          </div>
+          <ToggleThemeButton />
         </div>
       </nav>
     </>
