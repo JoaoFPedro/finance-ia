@@ -1,44 +1,30 @@
 "use client";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import ToggleThemeButton from "./toggleButton";
 // import ToggleThemeButton from "./toggleButton";
 
 const Header = () => {
-  const router = useRouter();
-
-  const goToTransaction = () => {
-    router.push("/transactions");
-  };
-  const goToHome = () => {
-    router.push("/");
-  };
   return (
     <>
-      <div className="flex justify-between p-4">
-        <div className="flex items-center space-x-3">
+      <nav className="flex justify-between p-4">
+        <div className="flex items-center gap-10">
           <Image src="/logo.png" alt="Finance AI" height={36} width={36} />
           <h1 className="text-center text-2xl font-bold">finance.ai</h1>
-        </div>
-        <div className="">
-          <Button variant="ghost" onClick={goToHome}>
-            Dashboard
-          </Button>
-          <Button variant="ghost" onClick={goToTransaction}>
-            Transações
-          </Button>
-          <Button variant="ghost">Assinatura</Button>
+          <Link href="/"> Dashboard</Link>
+          <Link href="/transactions"> Transações</Link>
+          <Link href="/subscriber"> Assinatura</Link>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex gap-12">
           <UserButton showName appearance={{ baseTheme: dark }} />
-          {/* <div className="">
+          <div className="">
             <ToggleThemeButton />
-          </div> */}
+          </div>
         </div>
-      </div>
+      </nav>
     </>
   );
 };
