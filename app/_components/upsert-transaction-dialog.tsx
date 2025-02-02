@@ -137,7 +137,7 @@ const UpsertTransaction = ({
                     <FormControl>
                       <MoneyInput
                         placeholder="Digite o valor da transação..."
-                        {...field}
+                        value={field.value}
                       />
                     </FormControl>
 
