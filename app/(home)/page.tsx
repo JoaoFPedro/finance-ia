@@ -1,7 +1,6 @@
-import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { dark } from "@clerk/themes";
 import { redirect } from "next/navigation";
+import SummaryCard from "./_components/summary-cards";
 
 const Home = async () => {
   const { userId } = await auth();
@@ -12,8 +11,7 @@ const Home = async () => {
   }
   return (
     <>
-      <h1>Hello World</h1>
-      <UserButton showName appearance={{ baseTheme: dark }} />
+      <SummaryCard />
     </>
   );
 };
