@@ -15,7 +15,6 @@ const SummaryCard = ({
   amount,
   size = "small",
 }: SummaryCardProps) => {
-  console.log("size***", size);
   return (
     <>
       <Card>
