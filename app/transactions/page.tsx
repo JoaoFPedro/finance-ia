@@ -12,7 +12,7 @@ const TransactionsPage = async () => {
   }
   const transactions = await db.transactions.findMany({
     where: {
-      id: userId,
+      userId: userId,
     },
   });
   return (
