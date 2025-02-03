@@ -7,16 +7,22 @@ import {
 } from "lucide-react";
 import SummaryCard from "./summary-card";
 import { ReactNode, useEffect, useState } from "react";
-import { getInvestmentTotal } from "@/app/_actions/transaction-values/getValues";
+import {
+  getInvestmentTotal,
+  getSpentTotal,
+} from "@/app/_actions/get-transaction-values/getValues";
 
 const SummaryCards = () => {
   const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
+  const [spentTotal, setSpentTotal] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTotal = async () => {
       const total = await getInvestmentTotal();
+      const totalSpent = await getSpentTotal();
       setInvestmentTotal(total);
-      console.log("TOTAL", total);
+      setSpentTotal(totalSpent);
+      console.log("TOTAL", totalSpent);
     };
 
     fetchTotal();
@@ -42,7 +48,7 @@ const SummaryCards = () => {
     {
       title: "Despesas",
       icon: <TrendingDownIcon className="text-red-700" />,
-      amount: 2950,
+      amount: spentTotal ?? 0,
     },
   ];
 
