@@ -1,4 +1,6 @@
+import { Button } from "@/app/_components/ui/button";
 import { Card, CardHeader, CardContent } from "@/app/_components/ui/card";
+import { ArrowDownUpIcon } from "lucide-react";
 
 import { ReactNode } from "react";
 
@@ -15,9 +17,10 @@ const SummaryCard = ({
   amount,
   size = "small",
 }: SummaryCardProps) => {
+  console.log("title", title);
   return (
     <>
-      <Card>
+      <Card className="bg-[#161716]">
         <CardHeader>
           <div className="flex items-center gap-3">
             {icon}
@@ -33,7 +36,7 @@ const SummaryCard = ({
             </p>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex">
           <p
             className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"}`}
           >
@@ -42,6 +45,15 @@ const SummaryCard = ({
               currency: "BRL",
             }).format(amount)}
           </p>
+          {title === "Saldo" && (
+            <Button
+              className="mb-auto ml-auto rounded-full text-sm"
+              //  onClick={() => setdialogIsOpen(true)}
+            >
+              Adicionar Transação
+              <ArrowDownUpIcon />
+            </Button>
+          )}
         </CardContent>
       </Card>
     </>
