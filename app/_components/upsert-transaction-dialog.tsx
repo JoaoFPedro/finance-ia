@@ -80,15 +80,6 @@ const UpsertTransaction = ({
   defaultValues,
   transactionId,
 }: UpsertTransactionsDialogProps) => {
-  const onSubmit = async (data: FormSchema) => {
-    console.log("DATA***", data);
-    try {
-      await upsertTransaction({ ...data, id: transactionId });
-      setIsOpen(false);
-    } catch (error) {
-      console.log("Post Error:", error);
-    }
-  };
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ?? {
@@ -100,6 +91,16 @@ const UpsertTransaction = ({
       type: TransactionsType.EXPENSE,
     },
   });
+  const onSubmit = async (data: FormSchema) => {
+    console.log("DATA***", data);
+    try {
+      await upsertTransaction({ ...data, id: transactionId });
+      setIsOpen(false);
+    } catch (error) {
+      console.log("Post Error:", error);
+    }
+  };
+
   const isUpdate = transactionId;
   return (
     <div className="overflow-y-auto">
@@ -138,6 +139,9 @@ const UpsertTransaction = ({
                       <MoneyInput
                         placeholder="Digite o valor da transação..."
                         value={field.value}
+                        onValueChange={({ floatValue }) =>
+                          field.onChange(floatValue)
+                        }
                       />
                     </FormControl>
 
