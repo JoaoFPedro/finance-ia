@@ -23,7 +23,6 @@ const SummaryCards = () => {
       setInvestmentTotal(total);
       setSpentTotal(totalSpent);
     };
-
     fetchTotal();
   }, []);
 
