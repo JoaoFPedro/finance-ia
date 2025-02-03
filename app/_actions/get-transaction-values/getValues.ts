@@ -17,7 +17,6 @@ export const getInvestmentTotal = async () => {
       new Decimal(0),
     );
 
-    // console.log("Total INVESTMENT amount:", totalAmount.toString());
     return totalAmount.toNumber();
   } catch (error) {
     console.error("Error fetching investment transactions:", error);
@@ -40,7 +39,6 @@ export const getSpentTotal = async () => {
       new Decimal(0),
     );
 
-    console.log("Total EXPENSE amount:", transactions);
     return totalAmount.toNumber();
   } catch (error) {
     console.log("Error:", error);

@@ -22,7 +22,6 @@ const SummaryCards = () => {
       const totalSpent = await getSpentTotal();
       setInvestmentTotal(total);
       setSpentTotal(totalSpent);
-      console.log("TOTAL", totalSpent);
     };
 
     fetchTotal();
