@@ -1,30 +1,48 @@
 "use client";
 import {
+  getBalanceTotal,
+  getInvestmentTotal,
+  getSpentTotal,
+} from "@/app/_actions/get-transaction-values/getValues";
+import {
   PiggyBankIcon,
   TrendingDownIcon,
   TrendingUpIcon,
   WalletIcon,
 } from "lucide-react";
-import SummaryCard from "./summary-card";
 import { ReactNode, useEffect, useState } from "react";
-import {
-  getInvestmentTotal,
-  getSpentTotal,
-} from "@/app/_actions/get-transaction-values/getValues";
+import SummaryCard from "./summary-card";
 
 const SummaryCards = () => {
   const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
   const [spentTotal, setSpentTotal] = useState<number | null>(null);
+  const [balanceTotal, setBalanceTotal] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTotal = async () => {
-      const total = await getInvestmentTotal();
-      const totalSpent = await getSpentTotal();
-      setInvestmentTotal(total);
-      setSpentTotal(totalSpent);
+      setLoading(true);
+      try {
+        const totalInvestment = await getInvestmentTotal();
+        const totalSpent = await getSpentTotal();
+        const balance = await getBalanceTotal();
+
+        setInvestmentTotal(totalInvestment);
+        setSpentTotal(totalSpent);
+        setBalanceTotal(balance);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchTotal();
   }, []);
+
+  if (loading) {
+    return <div className="text-center">Carregando...</div>;
+  }
+
+  const balanceTotalValue =
+    (balanceTotal ?? 0) - (spentTotal ?? 0) - (investmentTotal ?? 0);
 
   const summaryData: {
     icon: ReactNode;
@@ -32,7 +50,12 @@ const SummaryCards = () => {
     amount: number;
     size?: "small" | "large";
   }[] = [
-    { title: "Saldo", icon: <WalletIcon />, amount: 2700, size: "large" },
+    {
+      title: "Saldo",
+      icon: <WalletIcon />,
+      amount: balanceTotalValue,
+      size: "large",
+    },
     {
       title: "Investimento",
       icon: <PiggyBankIcon />,
@@ -41,7 +64,7 @@ const SummaryCards = () => {
     {
       title: "Receita",
       icon: <TrendingUpIcon className="text-primary" />,
-      amount: 8000,
+      amount: balanceTotal ?? 0,
     },
     {
       title: "Despesas",
@@ -49,7 +72,11 @@ const SummaryCards = () => {
       amount: spentTotal ?? 0,
     },
   ];
+  console.log("BALANCE**", balanceTotal);
+  console.log("SPENT**", spentTotal);
+  console.log("INVESTMENT**", investmentTotal);
 
+  console.log("SALDOTOTAL**", balanceTotalValue);
   return (
     <div className="w-1/2 space-y-6">
       <SummaryCard {...summaryData[0]} />
