@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -22,9 +24,13 @@ const TimeSelect = () => {
     { value: "11", label: "Novembro" },
     { value: "12", label: "Dezembro" },
   ];
+  const { push } = useRouter();
+  const onMonthChange = (month: string) => {
+    push(`/?month=${month}`);
+  };
   return (
     <>
-      <Select>
+      <Select onValueChange={(value) => onMonthChange(value)}>
         <SelectTrigger className="w-[100px] rounded-full">
           <SelectValue placeholder="Mês" />
         </SelectTrigger>
