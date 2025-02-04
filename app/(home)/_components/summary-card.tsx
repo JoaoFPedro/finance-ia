@@ -38,7 +38,7 @@ const SummaryCard = ({
             </p>
           </div>
         </CardHeader>
-        <CardContent className="flex gap-8">
+        <CardContent className="flex justify-between">
           <p
             className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"}`}
           >
@@ -47,7 +47,7 @@ const SummaryCard = ({
               currency: "BRL",
             }).format(amount)}
           </p>
-          {title === "Saldo" && <AddTransactionButton />}
+          {size === "large" && <AddTransactionButton />}
         </CardContent>
       </Card>
     </>
