@@ -37,14 +37,20 @@ export const getInvestmentTotal = async ({ month }: GetValueProps) => {
   }
 };
 
-export const getSpentTotal = async () => {
+export const getSpentTotal = async ({ month }: GetValueProps) => {
   try {
     const { userId } = await auth();
     if (!userId) {
       throw new Error("Unauthorized");
     }
+    const where = {
+      date: {
+        gte: new Date(`2025-${month}-01`),
+        lt: new Date(`2025-${month}-31`),
+      },
+    };
     const transactions = await db.transactions.findMany({
-      where: { type: TransactionsType.EXPENSE, userId: userId },
+      where: { ...where, type: TransactionsType.EXPENSE, userId: userId },
       select: { amount: true },
     });
     const totalAmount = transactions.reduce(

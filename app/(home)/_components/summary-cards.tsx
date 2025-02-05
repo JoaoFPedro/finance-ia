@@ -27,7 +27,7 @@ const SummaryCards = (month: SummaryCardsProps) => {
       setLoading(true);
       try {
         const totalInvestment = await getInvestmentTotal(month);
-        const totalSpent = await getSpentTotal();
+        const totalSpent = await getSpentTotal(month);
         const balance = await getBalanceTotal(month);
         setInvestmentTotal(totalInvestment);
         setSpentTotal(totalSpent);
