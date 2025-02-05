@@ -13,7 +13,10 @@ import {
 import { ReactNode, useEffect, useState } from "react";
 import SummaryCard from "./summary-card";
 
-const SummaryCards = () => {
+interface SummaryCardsProps {
+  month: string;
+}
+const SummaryCards = (month: SummaryCardsProps) => {
   const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
   const [spentTotal, setSpentTotal] = useState<number | null>(null);
   const [balanceTotal, setBalanceTotal] = useState<number | null>(null);
@@ -23,10 +26,9 @@ const SummaryCards = () => {
     const fetchTotal = async () => {
       setLoading(true);
       try {
-        const totalInvestment = await getInvestmentTotal();
+        const totalInvestment = await getInvestmentTotal(month);
         const totalSpent = await getSpentTotal();
-        const balance = await getBalanceTotal();
-
+        const balance = await getBalanceTotal(month);
         setInvestmentTotal(totalInvestment);
         setSpentTotal(totalSpent);
         setBalanceTotal(balance);
@@ -35,7 +37,7 @@ const SummaryCards = () => {
       }
     };
     fetchTotal();
-  }, []);
+  }, [month]);
 
   if (loading) {
     return <div className="text-center">Carregando...</div>;
