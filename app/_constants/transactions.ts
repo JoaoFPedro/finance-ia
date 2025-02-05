@@ -7,7 +7,7 @@ import {
 export const TRANSACTION_TYPE_OPTIONS = [
   {
     value: TransactionsType.DEPOSIT,
-    label: "Ganho",
+    label: "Depósito",
   },
   {
     value: TransactionsType.EXPENSE,
