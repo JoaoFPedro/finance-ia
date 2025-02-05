@@ -5,14 +5,23 @@ import { auth } from "@clerk/nextjs/server";
 import { TransactionsType } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
-export const getInvestmentTotal = async () => {
+interface GetValueProps {
+  month: string;
+}
+export const getInvestmentTotal = async ({ month }: GetValueProps) => {
   try {
     const { userId } = await auth();
     if (!userId) {
       throw new Error("Unauthorized");
     }
+    const where = {
+      date: {
+        gte: new Date(`2025-${month}-01`),
+        lt: new Date(`2025-${month}-31`),
+      },
+    };
     const transactions = await db.transactions.findMany({
-      where: { type: TransactionsType.INVESTMENT, userId: userId },
+      where: { ...where, type: TransactionsType.INVESTMENT, userId: userId },
       select: { amount: true },
     });
 
@@ -49,14 +58,20 @@ export const getSpentTotal = async () => {
     return 0;
   }
 };
-export const getBalanceTotal = async () => {
+export const getBalanceTotal = async ({ month }: GetValueProps) => {
   try {
     const { userId } = await auth();
     if (!userId) {
       throw new Error("Unauthorized");
     }
+    const where = {
+      date: {
+        gte: new Date(`2025-${month}-01`),
+        lt: new Date(`2025-${month}-31`),
+      },
+    };
     const transactions = await db.transactions.findMany({
-      where: { type: TransactionsType.DEPOSIT, userId: userId },
+      where: { ...where, type: TransactionsType.DEPOSIT, userId: userId },
       select: { amount: true },
     });
     const totalAmount = transactions.reduce(
