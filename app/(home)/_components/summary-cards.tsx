@@ -74,6 +74,7 @@ const SummaryCards = (month: SummaryCardsProps) => {
       amount: spentTotal ?? 0,
     },
   ];
+
   console.log("BALANCE**", balanceTotal);
   console.log("SPENT**", spentTotal);
   console.log("INVESTMENT**", investmentTotal);
