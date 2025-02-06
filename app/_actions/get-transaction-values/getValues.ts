@@ -84,7 +84,6 @@ export const getBalanceTotal = async ({ month }: GetValueProps) => {
       (sum, transaction) => sum.plus(transaction.amount),
       new Decimal(0),
     );
-    console.log("TOTALAMOUNT**", totalAmount);
     return totalAmount.toNumber();
   } catch (error) {
     console.log("Error:", error);
