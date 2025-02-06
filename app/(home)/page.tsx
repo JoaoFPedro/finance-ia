@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import TimeSelect from "../_components/time-select";
 import SummaryCards from "./_components/summary-cards";
 import { isMatch } from "date-fns";
+import PieChartBalance from "../_components/pie-chart";
 
 {
   /* 
@@ -30,13 +31,22 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     redirect("?month=1");
   }
   return (
-    <div className="p-6">
-      <div className="flex justify-between">
-        <h1 className="mb-6 text-2xl">Dashboard</h1>
-        <TimeSelect />
+    <>
+      <div className="p-6">
+        <div className="flex justify-between">
+          <h1 className="mb-6 text-2xl">Dashboard</h1>
+          <TimeSelect />
+        </div>
+        <SummaryCards month={month} />
+        <div className="grid grid-cols-2">
+          <div className="flex justify-between">
+            <PieChartBalance />
+
+            <PieChartBalance />
+          </div>
+        </div>
       </div>
-      <SummaryCards month={month} />
-    </div>
+    </>
   );
 };
 
