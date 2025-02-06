@@ -64,7 +64,7 @@ export const getSpentTotal = async ({ month }: GetValueProps) => {
     return 0;
   }
 };
-export const getBalanceTotal = async ({ month }: GetValueProps) => {
+export const getDepositTotal = async ({ month }: GetValueProps) => {
   try {
     const { userId } = await auth();
     if (!userId) {
@@ -84,6 +84,33 @@ export const getBalanceTotal = async ({ month }: GetValueProps) => {
       (sum, transaction) => sum.plus(transaction.amount),
       new Decimal(0),
     );
+    return totalAmount.toNumber();
+  } catch (error) {
+    console.log("Error:", error);
+    return 0;
+  }
+};
+export const getTotalBalance = async ({ month }: GetValueProps) => {
+  try {
+    const { userId } = await auth();
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+    const where = {
+      date: {
+        gte: new Date(`2025-${month}-01`),
+        lt: new Date(`2025-${month}-31`),
+      },
+    };
+    const transactions = await db.transactions.findMany({
+      where: { ...where, userId: userId },
+      select: { amount: true },
+    });
+    const totalAmount = transactions.reduce(
+      (sum, transaction) => sum.plus(transaction.amount),
+      new Decimal(0),
+    );
+
     return totalAmount.toNumber();
   } catch (error) {
     console.log("Error:", error);
