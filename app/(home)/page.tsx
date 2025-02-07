@@ -31,22 +31,21 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     redirect("?month=1");
   }
   return (
-    <>
-      <div className="p-6">
+    <div className="grid-cols-2 p-6">
+      <div className="w-1/2">
         <div className="flex justify-between">
           <h1 className="mb-6 text-2xl">Dashboard</h1>
           <TimeSelect />
         </div>
         <SummaryCards month={month} />
-        <div className="grid grid-cols-2">
-          <div className="flex justify-between">
-            <PieChartBalance />
 
-            <PieChartBalance />
-          </div>
+        <div className="mt-6 flex justify-between">
+          <PieChartBalance month={month} />
+
+          <PieChartBalance month={""} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
