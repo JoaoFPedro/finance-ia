@@ -78,8 +78,9 @@ export const getDepositTotal = async ({ month }: GetValueProps) => {
     };
     const transactions = await db.transactions.findMany({
       where: { ...where, type: TransactionsType.DEPOSIT, userId: userId },
-      select: { amount: true },
+      select: { amount: true, type: true },
     });
+    console.log("SPENT****", transactions);
     const totalAmount = transactions.reduce(
       (sum, transaction) => sum.plus(transaction.amount),
       new Decimal(0),
@@ -110,7 +111,7 @@ export const getTotalBalance = async ({ month }: GetValueProps) => {
       (sum, transaction) => sum.plus(transaction.amount),
       new Decimal(0),
     );
-
+    console.log("total****", totalAmount);
     return totalAmount.toNumber();
   } catch (error) {
     console.log("Error:", error);
