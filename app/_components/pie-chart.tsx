@@ -86,7 +86,7 @@ const PieChartBalance = (month: PieChartProps) => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="w-1/9 mt-6 flex flex-col">
+    <Card className="mt-6 flex w-1/3 flex-col">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
