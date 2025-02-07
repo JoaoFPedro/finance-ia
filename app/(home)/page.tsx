@@ -41,8 +41,6 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
 
         <div className="mt-6 flex justify-between">
           <PieChartBalance month={month} />
-
-          <PieChartBalance month={""} />
         </div>
       </div>
     </div>
