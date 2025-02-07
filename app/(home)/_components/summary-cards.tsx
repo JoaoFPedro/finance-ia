@@ -1,6 +1,6 @@
 "use client";
 import {
-  getBalanceTotal,
+  getDepositTotal,
   getInvestmentTotal,
   getSpentTotal,
 } from "@/app/_actions/get-transaction-values/getValues";
@@ -28,7 +28,7 @@ const SummaryCards = (month: SummaryCardsProps) => {
       try {
         const totalInvestment = await getInvestmentTotal(month);
         const totalSpent = await getSpentTotal(month);
-        const balance = await getBalanceTotal(month);
+        const balance = await getDepositTotal(month);
         setInvestmentTotal(totalInvestment);
         setSpentTotal(totalSpent);
         setBalanceTotal(balance);
@@ -81,7 +81,7 @@ const SummaryCards = (month: SummaryCardsProps) => {
 
   console.log("SALDOTOTAL**", balanceTotalValue);
   return (
-    <div className="w-1/2 space-y-6">
+    <div className="space-y-6">
       <SummaryCard {...summaryData[0]} />
 
       <div className="grid grid-cols-3 gap-6">
