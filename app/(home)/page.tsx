@@ -4,6 +4,7 @@ import TimeSelect from "../_components/time-select";
 import SummaryCards from "./_components/summary-cards";
 import { isMatch } from "date-fns";
 import PieChartBalance from "../_components/pie-chart";
+import ExpensesByCategory from "../_components/expenses-by-category";
 
 {
   /* 
@@ -31,17 +32,18 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     redirect("?month=1");
   }
   return (
-    <div className="grid-cols-2 p-6">
-      <div className="w-1/2">
-        <div className="flex justify-between">
-          <h1 className="mb-6 text-2xl">Dashboard</h1>
-          <TimeSelect />
-        </div>
-        <SummaryCards month={month} />
+    <div className="p-6">
+      <div className="flex justify-between">
+        <h1 className="mb-6 text-2xl">Dashboard</h1>
+        <TimeSelect />
+      </div>
 
-        <div className="mt-6 flex justify-between">
-          <PieChartBalance month={month} />
-        </div>
+      <div className="mt-6 grid grid-cols-[2fr,1fr]">
+        <SummaryCards month={month} />
+      </div>
+      <div className="flex">
+        <PieChartBalance month={month} />
+        <ExpensesByCategory month={month} />
       </div>
     </div>
   );
