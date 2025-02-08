@@ -15,7 +15,7 @@ import {
   getSpentTotal,
   getDepositTotal,
   getTotalBalance,
-} from "../_actions/get-transaction-values/getValues";
+} from "../_actions/get-transaction-values";
 import { TransactionsType } from "@prisma/client";
 
 interface PieChartProps {
@@ -106,6 +106,8 @@ const PieChartBalance = (month: PieChartProps) => {
           </PieChart>
         </ChartContainer>
       </CardContent>
+
+      {/* TODO: Transformar em um componente  */}
       <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
