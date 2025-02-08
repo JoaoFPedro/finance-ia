@@ -7,7 +7,7 @@ import {
   //   getInvestmentTotal,
   //   getSpentTotal,
   getTotalBalance,
-} from "../_actions/get-transaction-values/getValues";
+} from "../_actions/get-transaction-values";
 
 interface ExpensesByCategoryProps {
   month: string;
@@ -33,19 +33,18 @@ const ExpensesByCategory = (month: ExpensesByCategoryProps) => {
         // setInvestmentTotal(totalInvestment);
         // setSpentTotal(totalSpent);
         // setBalanceTotal(balance);
-        setTotalBalance(totalBalanceSum);
+        setTotalBalance(totalBalance);
       } finally {
         setLoading(false);
       }
     };
     fetchTotal();
-  }, [month]);
+  }, [month, totalBalance]);
 
   if (loading) {
     return <div className="text-center">Carregando...</div>;
   }
 
-  console.log("BALANCETOTAL***", totalBalance);
   return (
     <div>
       <h1>Gastos por categoria:</h1>
