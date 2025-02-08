@@ -55,7 +55,7 @@ const ExpensesByCategory = ({
           <div key={category.category} className="space-y-2">
             <div className="flex w-full justify-between">
               <p className="text-sm font-bold">{category.category}</p>
-              <p className="text-sm font-bold">{category.percentageOfTotal}</p>
+              <p className="text-sm font-bold">{category.percentageOfTotal}%</p>
             </div>
             <Progress value={category.percentageOfTotal} />
           </div>
