@@ -17,6 +17,7 @@ import {
   getDepositTotal,
   getTotalBalance,
 } from "../_actions/get-transaction-values/getValues";
+import { TransactionsType } from "@prisma/client";
 
 interface PieChartProps {
   month: string;
@@ -55,33 +56,33 @@ const PieChartBalance = (month: PieChartProps) => {
   }
   const chartData = [
     {
-      browser: "Deposito",
-      visitors: (spentTotal! / (totalBalance ?? 0)) * 100,
+      type: TransactionsType.DEPOSIT,
+      amount: spentTotal,
       fill: "red",
     },
     {
-      browser: "Investimento",
-      visitors: (investmentTotal! / (totalBalance ?? 0)) * 100,
+      type: TransactionsType.INVESTMENT,
+      amount: investmentTotal,
       fill: "white",
     },
     {
-      browser: "Receita",
-      visitors: (balanceTotal! / (totalBalance ?? 0)) * 100,
+      type: TransactionsType.EXPENSE,
+      amount: balanceTotal,
       fill: "green",
     },
   ];
   const chartConfig = {
-    chrome: {
-      label: "Chrome",
-      color: "hsl(var(--chart-1))",
+    [TransactionsType.DEPOSIT]: {
+      label: "Despesas",
+      color: "green",
     },
-    safari: {
-      label: "Safari",
-      color: "hsl(var(--chart-2))",
+    [TransactionsType.INVESTMENT]: {
+      label: "Investimento",
+      color: "white",
     },
-    firefox: {
-      label: "Firefox",
-      color: "hsl(var(--chart-3))",
+    [TransactionsType.EXPENSE]: {
+      label: "Depósito",
+      color: "red",
     },
   } satisfies ChartConfig;
 
@@ -99,8 +100,8 @@ const PieChartBalance = (month: PieChartProps) => {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="amount"
+              nameKey="type"
               innerRadius={60}
             />
           </PieChart>
