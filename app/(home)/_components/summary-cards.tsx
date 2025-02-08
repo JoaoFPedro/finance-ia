@@ -3,7 +3,7 @@ import {
   getDepositTotal,
   getInvestmentTotal,
   getSpentTotal,
-} from "@/app/_actions/get-transaction-values/getValues";
+} from "@/app/_actions/get-transaction-values";
 import {
   PiggyBankIcon,
   TrendingDownIcon,
