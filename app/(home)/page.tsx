@@ -5,6 +5,7 @@ import SummaryCards from "./_components/summary-cards";
 import { isMatch } from "date-fns";
 import PieChartBalance from "../_components/pie-chart";
 import ExpensesByCategory from "../_components/expenses-by-category";
+import { getDashboard } from "../_actions/get-transaction-values";
 
 {
   /* 
@@ -25,12 +26,12 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     console.log("userid", userId);
     redirect("/login");
   }
-  console.log("month***", month);
   const monthIsInvalid = !month || !isMatch(month, "MM");
 
   if (monthIsInvalid) {
     redirect("?month=1");
   }
+  const dashboard = await getDashboard(month);
   return (
     <div className="p-6">
       <div className="flex justify-between">
@@ -43,7 +44,9 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
           <SummaryCards month={month} />
           <div className="grid h-full grid-cols-3 grid-rows-1 gap-6 overflow-hidden">
             <PieChartBalance month={month} />
-            <ExpensesByCategory month={month} />
+            <ExpensesByCategory
+              expensesByCategory={dashboard.totalExpensePerCategory}
+            />
           </div>
         </div>
       </div>
