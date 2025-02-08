@@ -2,14 +2,13 @@
 
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { Pie, PieChart } from "recharts";
-import { Card, CardContent, CardFooter } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "./ui/chart";
-import { Alert, AlertDescription } from "./ui/alert";
 import { useEffect, useState } from "react";
 import {
   getInvestmentTotal,
@@ -87,7 +86,7 @@ const PieChartBalance = (month: PieChartProps) => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="mt-6 flex w-1/3 flex-col">
+    <Card className="mt-6 flex flex-col p-12">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
@@ -107,42 +106,39 @@ const PieChartBalance = (month: PieChartProps) => {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="mt-5 flex-col space-y-3">
-        <Alert>
-          <AlertDescription className="flex justify-between">
-            <div className="flex gap-2">
-              <TrendingUpIcon className="rounded-md bg-[#FFFFFF08] p-1 text-primary" />
+      <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <TrendingUpIcon className="rounded-md bg-[#FFFFFF08] p-1 text-primary" />
 
-              <h1>Ganhos</h1>
-            </div>
+            <p>Ganhos</p>
+          </div>
 
-            <h1>{`${totalBalancePieChart.toFixed(1)}%`}</h1>
-          </AlertDescription>
-        </Alert>
+          <h1>{`${totalBalancePieChart.toFixed()}%`}</h1>
+        </div>
+      </div>
+      <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <TrendingDownIcon className="rounded-md bg-[#FFFFFF08] p-1 text-primary text-red-700" />
 
-        <Alert>
-          <AlertDescription className="flex justify-between">
-            <div className="flex gap-2">
-              <TrendingDownIcon className="rounded-md bg-[#FFFFFF08] p-1 text-primary text-red-700" />
+            <p>Gastos</p>
+          </div>
 
-              <h1>Gastos</h1>
-            </div>
+          <h1 className="font-bold">{`${totalDepositPieChart.toFixed()}%`}</h1>
+        </div>
+      </div>
+      <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <PiggyBankIcon className="rounded-md bg-[#FFFFFF08] p-1" />
 
-            <h1 className="font-bold">{`${totalDepositPieChart.toFixed(1)}%`}</h1>
-          </AlertDescription>
-        </Alert>
+            <p>Investimentos</p>
+          </div>
 
-        <Alert>
-          <AlertDescription className="flex justify-between">
-            <div className="flex w-full gap-2">
-              <PiggyBankIcon className="rounded-md bg-[#FFFFFF08] p-1" />
-
-              <h1>Investimentos</h1>
-              <h1 className="font-bold">{`${totalInvestmentPieChart.toFixed(1)}%`}</h1>
-            </div>
-          </AlertDescription>
-        </Alert>
-      </CardFooter>
+          <h1 className="font-bold">{`${totalInvestmentPieChart.toFixed()}%`}</h1>
+        </div>
+      </div>
     </Card>
   );
 };

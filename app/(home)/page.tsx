@@ -38,12 +38,14 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
         <TimeSelect />
       </div>
 
-      <div className="mt-6 grid grid-cols-[2fr,1fr]">
-        <SummaryCards month={month} />
-      </div>
-      <div className="flex">
-        <PieChartBalance month={month} />
-        <ExpensesByCategory month={month} />
+      <div className="grid h-full grid-cols-[2fr,1fr] gap-6 overflow-hidden">
+        <div className="flex flex-col gap-6 overflow-hidden">
+          <SummaryCards month={month} />
+          <div className="grid h-full grid-cols-3 grid-rows-1 gap-6 overflow-hidden">
+            <PieChartBalance month={month} />
+            <ExpensesByCategory month={month} />
+          </div>
+        </div>
       </div>
     </div>
   );
