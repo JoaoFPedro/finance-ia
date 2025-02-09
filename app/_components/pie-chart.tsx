@@ -87,7 +87,7 @@ const PieChartBalance = (month: PieChartProps) => {
 
   return (
     <Card className="mt-6 flex flex-col p-12">
-      <CardContent className="flex-1 pb-0">
+      <CardContent>
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px]"
