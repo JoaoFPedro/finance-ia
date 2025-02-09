@@ -4,23 +4,11 @@ import { Progress } from "./ui/progress";
 import { ScrollArea } from "./ui/scroll-area";
 import { TotalExpensePerCategory } from "../_actions/get-transaction-values/types";
 import { CardContent, CardHeader, CardTitle } from "./ui/card";
+import { TRANSACTIONS_CATEGORY_LABELS } from "../_constants/transactions";
 
 interface ExpensesByCategoryProps {
   expensesByCategory: TotalExpensePerCategory[];
 }
-
-const categoryMapping: Record<string, string> = {
-  TRANSPORTATION: "Transporte",
-  OTHER: "Outros",
-  HOUSING: "Moradia",
-  FOOD: "Alimentação",
-  ENTERTAINMENT: "Entretenimento",
-  HEALTH: "Saúde",
-  UTILITY: "Utilidade",
-  EDUCATION: "Educação",
-
-  // TODO- fazer validação para nao pegar SALARY
-};
 
 const ExpensesByCategory = ({
   expensesByCategory,
@@ -64,13 +52,12 @@ const ExpensesByCategory = ({
       </CardHeader>
       <CardContent>
         {expensesByCategory.map((category) => {
-          const categoryLabel =
-            categoryMapping[category.category] || category.category;
-
           return (
             <div key={category.category} className="space-y-4">
               <div className="mt-3 flex w-full justify-between">
-                <p className="text-sm font-bold">{categoryLabel}</p>
+                <p className="text-sm font-bold">
+                  {TRANSACTIONS_CATEGORY_LABELS[category.category]}
+                </p>
                 <p className="text-sm font-bold">
                   {category.percentageOfTotal}%
                 </p>
