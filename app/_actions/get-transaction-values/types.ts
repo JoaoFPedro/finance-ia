@@ -4,4 +4,5 @@ export interface TotalExpensePerCategory {
   category: TransactionsCategory;
   totalAmount: number;
   percentageOfTotal: number;
+  date: string;
 }
