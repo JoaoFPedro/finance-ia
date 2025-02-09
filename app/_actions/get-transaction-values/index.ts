@@ -161,7 +161,6 @@ export const getDashboard = async (month: string) => {
     orderBy: { date: "desc" },
     take: 7,
   });
-  console.log("LASTRANSACTIONS**", lastTransactions);
   return {
     totalExpensePerCategory,
     expensesTotal,
