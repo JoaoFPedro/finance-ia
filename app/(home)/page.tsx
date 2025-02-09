@@ -50,9 +50,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
             />
           </div>
         </div>
-        <LastTransactions
-          expensesByCategory={dashboard.totalExpensePerCategory}
-        />
+        <LastTransactions lastTransactions={dashboard.lastTransactions} />
       </div>
     </div>
   );

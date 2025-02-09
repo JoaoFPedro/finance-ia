@@ -1,49 +1,94 @@
-import { TotalExpensePerCategory } from "@/app/_actions/get-transaction-values/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
-import { PiggyBankIcon } from "lucide-react";
 import { TRANSACTIONS_CATEGORY_LABELS } from "@/app/_constants/transactions";
+import { Button } from "./button";
+import Link from "next/link";
+import {
+  Transactions,
+  TransactionsPaymentMethod,
+  TransactionsType,
+} from "@prisma/client";
+import Image from "next/image";
 
 interface LastTransactionsCategoryProps {
-  expensesByCategory: TotalExpensePerCategory[];
+  lastTransactions: Transactions[];
 }
 
 const LastTransactions = ({
-  expensesByCategory,
+  lastTransactions,
 }: LastTransactionsCategoryProps) => {
+  const getPriceColor = (transactions: Transactions) => {
+    console.log("transactions**", transactions);
+    if (transactions.type === TransactionsType.EXPENSE) {
+      return "text-red-500";
+    }
+    if (transactions.type === TransactionsType.DEPOSIT) {
+      return "text-green-500";
+    }
+    return "text-white";
+  };
+  const getIcon = (transactions: Transactions) => {
+    if (
+      transactions.paymentMethod === TransactionsPaymentMethod.CASH ||
+      transactions.paymentMethod === TransactionsPaymentMethod.PIX
+    ) {
+      return "icon.png";
+    }
+    if (
+      transactions.paymentMethod === TransactionsPaymentMethod.CREDIT_CARD ||
+      transactions.paymentMethod === TransactionsPaymentMethod.DEBIT_CARD
+    ) {
+      return "crediCard.png";
+    }
+    return "bankTransfer.png";
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Transações</CardTitle>
+        <Button variant="ghost" className="rounded-full font-bold" asChild>
+          <Link href="/transactions">Ver mais</Link>
+        </Button>
       </CardHeader>
       <CardContent>
-        {expensesByCategory.map((category) => {
-          return (
-            <div key={category.category} className="space-y-4">
-              <div className="mt-3 flex w-full justify-between">
-                <div className="">
-                  <div className="flex space-x-3">
-                    <PiggyBankIcon />
-                    <p className="text-sm font-bold">
-                      {TRANSACTIONS_CATEGORY_LABELS[category.category]}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="ml-10 text-xs text-muted-foreground">
-                      {category.date}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="">
-                  {Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  }).format(category.totalAmount)}
+        {lastTransactions.map((transactions) => (
+          <div
+            key={transactions.id}
+            className="flex items-center justify-between space-y-4"
+          >
+            <div className="flex items-center text-center">
+              <div className="bg-white bg-opacity-[3%] p-3">
+                <Image
+                  src={`/${getIcon(transactions)}`}
+                  height={50}
+                  width={50}
+                  alt="PIX"
+                />
+              </div>{" "}
+              <div>
+                <p className="text-sm font-bold">
+                  {TRANSACTIONS_CATEGORY_LABELS[transactions.category]}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {Intl.DateTimeFormat("pt-BR", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                    .format(transactions.createdAt)
+                    .replace("de", " ")
+                    .replace("de", "")}
                 </p>
               </div>
             </div>
-          );
-        })}
+            <p className={`text-sm font-bold ${getPriceColor(transactions)}`}>
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(Number(transactions.amount))}
+            </p>
+          </div>
+        ))}
       </CardContent>
     </Card>
   );
