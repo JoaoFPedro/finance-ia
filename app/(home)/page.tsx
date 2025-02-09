@@ -6,6 +6,7 @@ import { isMatch } from "date-fns";
 import PieChartBalance from "../_components/pie-chart";
 import ExpensesByCategory from "../_components/expenses-by-category";
 import { getDashboard } from "../_actions/get-transaction-values";
+import LastTransactions from "../_components/ui/last-transactions";
 
 {
   /* 
@@ -49,6 +50,9 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
             />
           </div>
         </div>
+        <LastTransactions
+          expensesByCategory={dashboard.totalExpensePerCategory}
+        />
       </div>
     </div>
   );
