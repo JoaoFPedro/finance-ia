@@ -87,3 +87,16 @@ export const TRANSACTIONS_PAYMENTMETHOD_OPTIONS = [
     label: "Outro",
   },
 ];
+export const TRANSACTIONS_CATEGORY_LABELS: Record<string, string> = {
+  TRANSPORTATION: "Transporte",
+  OTHER: "Outros",
+  HOUSING: "Moradia",
+  FOOD: "Alimentação",
+  ENTERTAINMENT: "Entretenimento",
+  HEALTH: "Saúde",
+  UTILITY: "Utilidade",
+  EDUCATION: "Educação",
+  SALARY: "Salário",
+
+  // TODO- fazer validação para nao pegar SALARY
+};
