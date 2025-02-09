@@ -97,6 +97,18 @@ export const TRANSACTIONS_CATEGORY_LABELS: Record<string, string> = {
   UTILITY: "Utilidade",
   EDUCATION: "Educação",
   SALARY: "Salário",
+};
+export const TRANSACTIONS_PAYMENT_METHOD_ICONS = {
+  CREDIT_CARD: "icon.png",
+  DEBIT_CARD: "icon.png",
 
-  // TODO- fazer validação para nao pegar SALARY
+  BANK_TRANSFER: "icon.png",
+
+  BANK_SLIP: "icon.png",
+
+  CASH: "icon.png",
+
+  PIX: "icon.png",
+
+  OTHER: "icon.png",
 };
