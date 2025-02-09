@@ -1,7 +1,6 @@
 "use client";
 
 import { Progress } from "./ui/progress";
-
 import { ScrollArea } from "./ui/scroll-area";
 import { TotalExpensePerCategory } from "../_actions/get-transaction-values/types";
 import { CardContent, CardHeader, CardTitle } from "./ui/card";
@@ -10,10 +9,22 @@ interface ExpensesByCategoryProps {
   expensesByCategory: TotalExpensePerCategory[];
 }
 
+const categoryMapping: Record<string, string> = {
+  TRANSPORTATION: "Transporte",
+  OTHER: "Outros",
+  HOUSING: "Moradia",
+  FOOD: "Alimentação",
+  ENTERTAINMENT: "Entretenimento",
+  HEALTH: "Saúde",
+  UTILITY: "Utilidade",
+  EDUCATION: "Educação",
+
+  // TODO- fazer validação para nao pegar SALARY
+};
+
 const ExpensesByCategory = ({
   expensesByCategory,
 }: ExpensesByCategoryProps) => {
-  console.log("EXPENSES***", expensesByCategory);
   //   const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
   //   const [spentTotal, setSpentTotal] = useState<number | null>(null);
   //   const [balanceTotal, setBalanceTotal] = useState<number | null>(null);
@@ -44,22 +55,36 @@ const ExpensesByCategory = ({
   // if (loading) {
   //   return <div className="text-center">Carregando...</div>;
   // }
+  console.log("EXPENSES***", expensesByCategory);
 
   return (
-    <ScrollArea className="broder col-span-2 h-full rounded-md p-6">
+    <ScrollArea className="col-span-2 mt-6 rounded-xl border p-12 shadow-inner shadow-gray-900">
       <CardHeader>
         <CardTitle className="font-bold">Gastos por categoria</CardTitle>
       </CardHeader>
       <CardContent>
-        {expensesByCategory.map((category) => (
-          <div key={category.category} className="space-y-2">
-            <div className="flex w-full justify-between">
-              <p className="text-sm font-bold">{category.category}</p>
-              <p className="text-sm font-bold">{category.percentageOfTotal}%</p>
+        {expensesByCategory.map((category) => {
+          const categoryLabel =
+            categoryMapping[category.category] || category.category;
+
+          return (
+            <div key={category.category} className="space-y-4">
+              <div className="mt-3 flex w-full justify-between">
+                <p className="text-sm font-bold">{categoryLabel}</p>
+                <p className="text-sm font-bold">
+                  {category.percentageOfTotal}%
+                </p>
+              </div>
+              <Progress value={category.percentageOfTotal} />
+              <p className="text-sm text-muted-foreground">
+                {Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(category.totalAmount)}
+              </p>
             </div>
-            <Progress value={category.percentageOfTotal} />
-          </div>
-        ))}
+          );
+        })}
       </CardContent>
     </ScrollArea>
   );
