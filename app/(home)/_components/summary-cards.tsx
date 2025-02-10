@@ -1,50 +1,26 @@
 "use client";
-import {
-  getDepositTotal,
-  getInvestmentTotal,
-  getSpentTotal,
-} from "@/app/_actions/get-transaction-values";
+
 import {
   PiggyBankIcon,
   TrendingDownIcon,
   TrendingUpIcon,
   WalletIcon,
 } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import SummaryCard from "./summary-card";
 
 interface SummaryCardsProps {
   month: string;
+  investmentTotal: number;
+  depositTotal: number;
+  expensesTotal: number;
 }
-const SummaryCards = (month: SummaryCardsProps) => {
-  const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
-  const [spentTotal, setSpentTotal] = useState<number | null>(null);
-  const [balanceTotal, setBalanceTotal] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTotal = async () => {
-      setLoading(true);
-      try {
-        const totalInvestment = await getInvestmentTotal(month);
-        const totalSpent = await getSpentTotal(month);
-        const balance = await getDepositTotal(month);
-        setInvestmentTotal(totalInvestment);
-        setSpentTotal(totalSpent);
-        setBalanceTotal(balance);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTotal();
-  }, [month]);
-
-  if (loading) {
-    return <div className="text-center">Carregando...</div>;
-  }
-
-  const balanceTotalValue =
-    (balanceTotal ?? 0) - (spentTotal ?? 0) - (investmentTotal ?? 0);
+const SummaryCards = ({
+  investmentTotal,
+  depositTotal,
+  expensesTotal,
+}: SummaryCardsProps) => {
+  const balanceTotalValue = expensesTotal - depositTotal - investmentTotal;
 
   const summaryData: {
     icon: ReactNode;
@@ -66,12 +42,12 @@ const SummaryCards = (month: SummaryCardsProps) => {
     {
       title: "Receita",
       icon: <TrendingUpIcon className="text-primary" />,
-      amount: balanceTotal ?? 0,
+      amount: depositTotal,
     },
     {
       title: "Despesas",
       icon: <TrendingDownIcon className="text-red-700" />,
-      amount: spentTotal ?? 0,
+      amount: expensesTotal,
     },
   ];
 

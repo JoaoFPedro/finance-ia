@@ -123,27 +123,48 @@ export const getTotalBalance = async ({ month }: GetValueProps) => {
 // REFACTORING
 
 export const getDashboard = async (month: string) => {
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
   const where = {
     date: {
       gte: new Date(`2025-${month}-01`),
       lt: new Date(`2025-${month}-31`),
     },
   };
+
   const expensesTotal = Number(
     (
       await db.transactions.aggregate({
-        where: { ...where, type: "EXPENSE" },
+        where: { ...where, type: "EXPENSE", userId: userId },
         _sum: { amount: true },
       })
     )?._sum?.amount,
   );
-
+  const depositTotal = Number(
+    (
+      await db.transactions.aggregate({
+        where: { ...where, type: "DEPOSIT", userId: userId },
+        _sum: { amount: true },
+      })
+    )?._sum?.amount,
+  );
+  const investmentTotal = Number(
+    (
+      await db.transactions.aggregate({
+        where: { ...where, type: "INVESTMENT", userId: userId },
+        _sum: { amount: true },
+      })
+    )?._sum?.amount,
+  );
   const totalExpensePerCategory: TotalExpensePerCategory[] = (
     await db.transactions.groupBy({
       by: ["category"],
       where: {
         ...where,
         type: TransactionsType.EXPENSE,
+        userId: userId,
       },
       _sum: {
         amount: true,
@@ -157,7 +178,10 @@ export const getDashboard = async (month: string) => {
     ),
   }));
   const lastTransactions = await db.transactions.findMany({
-    where,
+    where: {
+      ...where,
+      userId: userId,
+    },
     orderBy: { date: "desc" },
     take: 7,
   });
@@ -166,5 +190,7 @@ export const getDashboard = async (month: string) => {
     totalExpensePerCategory,
     expensesTotal,
     lastTransactions,
+    depositTotal,
+    investmentTotal,
   };
 };
