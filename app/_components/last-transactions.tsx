@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { TRANSACTIONS_CATEGORY_LABELS } from "@/app/_constants/transactions";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import Link from "next/link";
 import {
   Transactions,
@@ -56,13 +56,14 @@ const LastTransactions = ({
             key={transactions.id}
             className="flex items-center justify-between space-y-4"
           >
-            <div className="flex items-center text-center">
-              <div className="bg-white bg-opacity-[3%] p-3">
+            <div className="flex items-center gap-3">
+              <div className="p-3">
                 <Image
                   src={`/${getIcon(transactions)}`}
                   height={50}
                   width={50}
                   alt="PIX"
+                  className="bg-white bg-opacity-[2%]"
                 />
               </div>{" "}
               <div>
