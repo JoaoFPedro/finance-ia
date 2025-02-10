@@ -75,10 +75,6 @@ const SummaryCards = (month: SummaryCardsProps) => {
     },
   ];
 
-  console.log("BALANCE**", balanceTotal);
-  console.log("SPENT**", spentTotal);
-  console.log("INVESTMENT**", investmentTotal);
-
   console.log("SALDOTOTAL**", balanceTotalValue);
   return (
     <div className="space-y-6">
