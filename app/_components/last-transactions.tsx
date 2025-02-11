@@ -17,7 +17,6 @@ const LastTransactions = ({
   lastTransactions,
 }: LastTransactionsCategoryProps) => {
   const getPriceColor = (transactions: Transactions) => {
-    console.log("transactions**", transactions);
     if (transactions.type === TransactionsType.EXPENSE) {
       return "text-red-500";
     }
@@ -26,6 +25,7 @@ const LastTransactions = ({
     }
     return "text-white";
   };
+
   const getIcon = (transactions: Transactions) => {
     if (
       transactions.paymentMethod === TransactionsPaymentMethod.CASH ||
