@@ -9,54 +9,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "./ui/chart";
-import { useEffect, useState } from "react";
-import {
-  getInvestmentTotal,
-  getSpentTotal,
-  getDepositTotal,
-  getTotalBalance,
-} from "../_actions/get-transaction-values";
+
 import { TransactionsType } from "@prisma/client";
 
 interface PieChartProps {
-  month: string;
+  investmentTotal: number;
+  depositTotal: number;
+  expensesTotal: number;
 }
 
-const PieChartBalance = (month: PieChartProps) => {
-  const [investmentTotal, setInvestmentTotal] = useState<number | null>(null);
-  const [spentTotal, setSpentTotal] = useState<number | null>(null);
-  const [balanceTotal, setBalanceTotal] = useState<number | null>(null);
-  const [totalBalance, setTotalBalance] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchTotal = async () => {
-      try {
-        const totalInvestment = await getInvestmentTotal(month);
-        const totalSpent = await getSpentTotal(month);
-        const balance = await getDepositTotal(month);
-        const totalBalanceSum = await getTotalBalance(month);
-
-        setInvestmentTotal(totalInvestment);
-        setSpentTotal(totalSpent);
-        setBalanceTotal(balance);
-        setTotalBalance(totalBalanceSum);
-      } finally {
-      }
-    };
-    fetchTotal();
-  }, [month]);
-  let totalDepositPieChart = 0;
-  let totalBalancePieChart = 0;
-  let totalInvestmentPieChart = 0;
-  if (totalBalance && spentTotal) {
-    totalDepositPieChart = (spentTotal / totalBalance) * 100;
-    totalBalancePieChart = (balanceTotal! / (totalBalance ?? 0)) * 100;
-    totalInvestmentPieChart = (investmentTotal! / (totalBalance ?? 0)) * 100;
-  }
+const PieChartBalance = ({
+  investmentTotal,
+  depositTotal,
+  expensesTotal,
+}: PieChartProps) => {
   const chartData = [
     {
       type: TransactionsType.DEPOSIT,
-      amount: spentTotal,
+      amount: depositTotal,
       fill: "red",
     },
     {
@@ -66,7 +36,7 @@ const PieChartBalance = (month: PieChartProps) => {
     },
     {
       type: TransactionsType.EXPENSE,
-      amount: balanceTotal,
+      amount: expensesTotal,
       fill: "green",
     },
   ];
@@ -84,6 +54,9 @@ const PieChartBalance = (month: PieChartProps) => {
       color: "red",
     },
   } satisfies ChartConfig;
+  const percentageExpensesTotal = expensesTotal / 100;
+  const percentageDepositTotal = depositTotal / 100;
+  const percentageInvestmentTotal = investmentTotal / 100;
 
   return (
     <Card className="mt-6 flex flex-col p-12">
@@ -108,7 +81,7 @@ const PieChartBalance = (month: PieChartProps) => {
       </CardContent>
 
       {/* TODO: Transformar em um componente  */}
-      <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
+      <div className="mb-4 w-full items-center space-y-2 rounded-xl border p-3 shadow-inner shadow-gray-900">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <TrendingUpIcon className="rounded-md bg-[#FFFFFF08] p-1 text-primary" />
@@ -116,7 +89,7 @@ const PieChartBalance = (month: PieChartProps) => {
             <p>Ganhos</p>
           </div>
 
-          <h1>{`${totalBalancePieChart.toFixed()}%`}</h1>
+          <h1>{`${percentageDepositTotal.toFixed()}%`}</h1>
         </div>
       </div>
       <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
@@ -127,7 +100,7 @@ const PieChartBalance = (month: PieChartProps) => {
             <p>Gastos</p>
           </div>
 
-          <h1 className="font-bold">{`${totalDepositPieChart.toFixed()}%`}</h1>
+          <h1 className="font-bold">{`${percentageExpensesTotal.toFixed()}%`}</h1>
         </div>
       </div>
       <div className="mb-4 items-center space-y-2 rounded-xl border p-4 shadow-inner shadow-gray-900">
@@ -138,7 +111,7 @@ const PieChartBalance = (month: PieChartProps) => {
             <p>Investimentos</p>
           </div>
 
-          <h1 className="font-bold">{`${totalInvestmentPieChart.toFixed()}%`}</h1>
+          <h1 className="font-bold">{`${percentageInvestmentTotal.toFixed()}%`}</h1>
         </div>
       </div>
     </Card>
