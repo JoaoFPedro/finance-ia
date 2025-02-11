@@ -9,6 +9,7 @@ interface SummaryCardProps {
   title: string;
   amount: number;
   size?: "small" | "large";
+  color?: string;
 }
 
 const SummaryCard = ({
@@ -16,10 +17,10 @@ const SummaryCard = ({
   title,
   amount,
   size = "small",
+  color,
 }: SummaryCardProps) => {
   // const [dialogIsOpen, setdialogIsOpen] = useState(false);
 
-  console.log("title", title);
   return (
     <>
       <Card className="bg-[#161716]">
@@ -40,7 +41,7 @@ const SummaryCard = ({
         </CardHeader>
         <CardContent className="flex justify-between">
           <p
-            className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"}`}
+            className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"} ${color === "red" ? "text-red-500" : "text-white"}`}
           >
             {Intl.NumberFormat("pt-BR", {
               style: "currency",

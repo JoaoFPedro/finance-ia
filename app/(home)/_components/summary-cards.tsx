@@ -27,12 +27,14 @@ const SummaryCards = ({
     title: string;
     amount: number;
     size?: "small" | "large";
+    color?: string;
   }[] = [
     {
       title: "Saldo",
       icon: <WalletIcon />,
       amount: balanceTotalValue,
       size: "large",
+      color: balanceTotalValue < 0 ? "red" : "white",
     },
     {
       title: "Investimento",
