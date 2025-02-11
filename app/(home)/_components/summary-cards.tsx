@@ -20,7 +20,7 @@ const SummaryCards = ({
   depositTotal,
   expensesTotal,
 }: SummaryCardsProps) => {
-  const balanceTotalValue = expensesTotal - depositTotal - investmentTotal;
+  const balanceTotalValue = depositTotal - expensesTotal + investmentTotal;
 
   const summaryData: {
     icon: ReactNode;
