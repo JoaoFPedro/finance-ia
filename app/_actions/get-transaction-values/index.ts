@@ -142,6 +142,7 @@ export const getDashboard = async (month: string) => {
       })
     )?._sum?.amount,
   );
+
   const depositTotal = Number(
     (
       await db.transactions.aggregate({
@@ -150,6 +151,7 @@ export const getDashboard = async (month: string) => {
       })
     )?._sum?.amount,
   );
+
   const investmentTotal = Number(
     (
       await db.transactions.aggregate({
@@ -158,6 +160,7 @@ export const getDashboard = async (month: string) => {
       })
     )?._sum?.amount,
   );
+
   const totalExpensePerCategory: TotalExpensePerCategory[] = (
     await db.transactions.groupBy({
       by: ["category"],
@@ -177,6 +180,7 @@ export const getDashboard = async (month: string) => {
       (Number(category._sum.amount) / Number(expensesTotal)) * 100,
     ),
   }));
+
   const lastTransactions = await db.transactions.findMany({
     where: {
       ...where,
