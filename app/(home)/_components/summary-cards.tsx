@@ -10,7 +10,6 @@ import { ReactNode } from "react";
 import SummaryCard from "./summary-card";
 
 interface SummaryCardsProps {
-  month: string;
   investmentTotal: number;
   depositTotal: number;
   expensesTotal: number;
