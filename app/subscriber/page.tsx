@@ -1,5 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { Card, CardContent, CardHeader } from "../_components/ui/card";
+import { CheckIcon, XIcon } from "lucide-react";
+import { Button } from "../_components/ui/button";
 
 const SubscriberPage = async () => {
   const { userId } = await auth();
@@ -8,7 +11,84 @@ const SubscriberPage = async () => {
   }
   return (
     <>
-      <h1>Hello world</h1>
+      <div className="space-y-6 p-6">
+        <h1 className="text-2xl">Assinatura</h1>
+        <div className="flex gap-4">
+          <Card className="w-[430px]">
+            <CardHeader>
+              <h2 className="text-center text-2xl">Plano Básico</h2>
+              <div className="flex justify-center gap-3">
+                <span className="text-4xl">R$</span>
+                <span className="text-4xl">0</span>
+                <span className="mt-3 text-muted-foreground">/mês</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Apenas 10 transações por dia 7/10</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Dashboard Financeira</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Funcionalidades básicas</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <XIcon />
+                  <p className="text-xl"> Relatórios de IA ilimitados</p>
+                </div>
+                <Button
+                  className="w-full rounded-3xl border border-primary text-primary"
+                  variant="ghost"
+                >
+                  GRATUITO{" "}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="w-[430px]">
+            <CardHeader>
+              <h2 className="text-center text-2xl">Plano Pro</h2>
+              <div className="flex justify-center gap-3">
+                <span className="text-4xl">R$</span>
+                <span className="text-4xl">19</span>
+                <span className="mt-3 text-muted-foreground">/mês</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Transações ilimitadas</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl">Relatórios de IA ilimitados</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Todas as funcionalidades</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckIcon className="text-primary" />
+                  <p className="text-xl"> Área de membros</p>
+                </div>
+
+                <Button
+                  className="w-full rounded-3xl border border-primary text-primary"
+                  variant="ghost"
+                >
+                  Adquirar plano Pro{" "}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </>
   );
 };
