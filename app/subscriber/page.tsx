@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader } from "../_components/ui/card";
 import { CheckIcon, XIcon } from "lucide-react";
 import { Button } from "../_components/ui/button";
+import AcquirePlanButton from "./_components/acquire-plan-button";
 
 const SubscriberPage = async () => {
   const { userId } = await auth();
@@ -78,12 +79,7 @@ const SubscriberPage = async () => {
                   <p className="text-xl"> Área de membros</p>
                 </div>
 
-                <Button
-                  className="w-full rounded-3xl border border-primary text-primary"
-                  variant="ghost"
-                >
-                  Adquirar plano Pro{" "}
-                </Button>
+                <AcquirePlanButton />
               </div>
             </CardContent>
           </Card>
