@@ -1,22 +1,27 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader } from "../_components/ui/card";
 import { CheckIcon, XIcon } from "lucide-react";
 import { Button } from "../_components/ui/button";
 import AcquirePlanButton from "./_components/acquire-plan-button";
+import { Badge } from "../_components/ui/badge";
 
 const SubscriberPage = async () => {
   const { userId } = await auth();
   if (!userId) {
-    redirect("/");
+    redirect("/login");
   }
+  const clerk = await clerkClient(); // Primeiro resolva clerkClient()
+  const user = await clerk.users.getUser(userId); // Agora você pode acessar users
+
+  const hasProPlan = user.publicMetadata?.subscriptionPlan === "Pro";
   return (
     <>
       <div className="space-y-6 p-6">
         <h1 className="text-2xl">Assinatura</h1>
         <div className="flex gap-4">
           <Card className="w-[430px]">
-            <CardHeader>
+            <CardHeader className="relative border-b border-solid py-8">
               <h2 className="text-center text-2xl">Plano Básico</h2>
               <div className="flex justify-center gap-3">
                 <span className="text-4xl">R$</span>
@@ -25,7 +30,7 @@ const SubscriberPage = async () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
+              <div className="mt-4 space-y-6">
                 <div className="flex items-center gap-2">
                   <CheckIcon className="text-primary" />
                   <p className="text-xl"> Apenas 10 transações por dia 7/10</p>
@@ -52,7 +57,12 @@ const SubscriberPage = async () => {
             </CardContent>
           </Card>
           <Card className="w-[430px]">
-            <CardHeader>
+            <CardHeader className="relative border-b border-solid py-8">
+              {hasProPlan && (
+                <Badge className="absolute left-4 top-12 bg-primary/10 text-primary">
+                  Atual
+                </Badge>
+              )}
               <h2 className="text-center text-2xl">Plano Pro</h2>
               <div className="flex justify-center gap-3">
                 <span className="text-4xl">R$</span>
@@ -61,7 +71,7 @@ const SubscriberPage = async () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
+              <div className="mt-4 space-y-6">
                 <div className="flex items-center gap-2">
                   <CheckIcon className="text-primary" />
                   <p className="text-xl"> Transações ilimitadas</p>
