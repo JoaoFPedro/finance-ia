@@ -19,7 +19,7 @@ const AcquirePlanButton = () => {
 
     await stripe?.redirectToCheckout({ sessionId });
   };
-  const userHasProPlan = user?.publicMetadata.subscriptionPlan === "Pro";
+  const userHasProPlan = user?.publicMetadata.subscriptionPlan === "pro";
   if (userHasProPlan) {
     return (
       <Button

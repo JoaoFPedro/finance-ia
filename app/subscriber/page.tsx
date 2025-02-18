@@ -14,7 +14,7 @@ const SubscriberPage = async () => {
   const clerk = await clerkClient(); // Primeiro resolva clerkClient()
   const user = await clerk.users.getUser(userId); // Agora você pode acessar users
 
-  const hasProPlan = user.publicMetadata?.subscriptionPlan === "Pro";
+  const hasProPlan = user.publicMetadata?.subscriptionPlan === "pro";
   return (
     <>
       <div className="space-y-6 p-6">
