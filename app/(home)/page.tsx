@@ -7,6 +7,7 @@ import PieChartBalance from "../_components/pie-chart";
 import ExpensesByCategory from "../_components/expenses-by-category";
 import { getDashboard } from "../_actions/get-transaction-values";
 import LastTransactions from "../_components/last-transactions";
+import { canUserAddTransaction } from "../_actions/can-user-add-transaction";
 
 {
   /* 
@@ -33,6 +34,7 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     redirect("?month=1");
   }
   const dashboard = await getDashboard(month);
+  const canUserCreateTransanction = await canUserAddTransaction();
   return (
     <div className="p-6">
       <div className="flex justify-between">
@@ -42,7 +44,10 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
 
       <div className="grid h-full grid-cols-[2fr,1fr] gap-6 overflow-hidden">
         <div className="flex flex-col gap-6 overflow-hidden">
-          <SummaryCards {...dashboard} />
+          <SummaryCards
+            {...dashboard}
+            canUserAddTransaction={canUserCreateTransanction}
+          />
           <div className="grid h-full grid-cols-3 grid-rows-1 gap-6 overflow-hidden">
             <PieChartBalance {...dashboard} />
             <ExpensesByCategory

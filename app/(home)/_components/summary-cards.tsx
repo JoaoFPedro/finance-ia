@@ -13,11 +13,13 @@ interface SummaryCardsProps {
   investmentTotal: number;
   depositTotal: number;
   expensesTotal: number;
+  canUserAddTransaction: boolean;
 }
 const SummaryCards = ({
   investmentTotal,
   depositTotal,
   expensesTotal,
+  canUserAddTransaction,
 }: SummaryCardsProps) => {
   const balanceTotalValue = depositTotal - expensesTotal + investmentTotal;
 
@@ -55,7 +57,10 @@ const SummaryCards = ({
   console.log("SALDOTOTAL**", balanceTotalValue);
   return (
     <div className="space-y-6">
-      <SummaryCard {...summaryData[0]} />
+      <SummaryCard
+        {...summaryData[0]}
+        canUserAddTransaction={canUserAddTransaction}
+      />
 
       <div className="grid grid-cols-3 gap-6">
         {summaryData.slice(1).map((item, index) => (

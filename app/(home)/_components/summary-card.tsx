@@ -10,6 +10,7 @@ interface SummaryCardProps {
   amount: number;
   size?: "small" | "large";
   color?: string;
+  canUserAddTransaction?: boolean;
 }
 
 const SummaryCard = ({
@@ -18,6 +19,7 @@ const SummaryCard = ({
   amount,
   size = "small",
   color,
+  canUserAddTransaction,
 }: SummaryCardProps) => {
   // const [dialogIsOpen, setdialogIsOpen] = useState(false);
 
@@ -48,7 +50,11 @@ const SummaryCard = ({
               currency: "BRL",
             }).format(amount)}
           </p>
-          {size === "large" && <AddTransactionButton />}
+          {size === "large" && (
+            <AddTransactionButton
+              totalMonthTransactions={canUserAddTransaction}
+            />
+          )}
         </CardContent>
       </Card>
     </>
