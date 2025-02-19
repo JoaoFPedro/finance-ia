@@ -5,6 +5,8 @@ import { CheckIcon, XIcon } from "lucide-react";
 import { Button } from "../_components/ui/button";
 import AcquirePlanButton from "./_components/acquire-plan-button";
 import { Badge } from "../_components/ui/badge";
+import { db } from "../_lib/prisma";
+import { endOfMonth, startOfMonth } from "date-fns";
 
 const SubscriberPage = async () => {
   const { userId } = await auth();
@@ -13,7 +15,15 @@ const SubscriberPage = async () => {
   }
   const clerk = await clerkClient(); // Primeiro resolva clerkClient()
   const user = await clerk.users.getUser(userId); // Agora você pode acessar users
-
+  const currentMonthTransactions = await db.transactions.count({
+    where: {
+      userId,
+      createdAt: {
+        gte: startOfMonth(new Date()),
+        lt: endOfMonth(new Date()),
+      },
+    },
+  });
   const hasProPlan = user.publicMetadata?.subscriptionPlan === "pro";
   return (
     <>
@@ -33,7 +43,10 @@ const SubscriberPage = async () => {
               <div className="mt-4 space-y-6">
                 <div className="flex items-center gap-2">
                   <CheckIcon className="text-primary" />
-                  <p className="text-xl"> Apenas 10 transações por dia 7/10</p>
+                  <p className="text-xl">
+                    {" "}
+                    Apenas 10 transações por dia {currentMonthTransactions}/10
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon className="text-primary" />
