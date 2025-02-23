@@ -9,14 +9,6 @@ import { getDashboard } from "../_actions/get-transaction-values";
 import LastTransactions from "../_components/last-transactions";
 import { canUserAddTransaction } from "../_actions/can-user-add-transaction";
 
-{
-  /* 
-  A informação de que o parâmetro vem da URL é definida pelo Next.js App Router, que passa os parâmetros de busca (searchParams) automaticamente para os Server Components que utilizam a convenção de nomeação [nome].tsx ou (grupo)/page.tsx.
-
-Como o searchParams é obtido?
-No Next.js, quando um usuário acessa uma página com uma query string (exemplo: ?month=02), esses valores são automaticamente incluídos em searchParams quando a página é renderizada. 
-  */
-}
 interface HomeProps {
   searchParams: {
     month: string;
