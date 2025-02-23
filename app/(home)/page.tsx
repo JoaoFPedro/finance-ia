@@ -33,7 +33,10 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
       <div className="flex justify-between">
         <h1 className="mb-6 text-2xl">Dashboard</h1>
         <div className="flex gap-4">
-          <AiReportButton />
+          <AiReportButton
+            month={month}
+            hasProPlan={canUserCreateTransanction}
+          />
           <TimeSelect />
         </div>
       </div>
