@@ -46,7 +46,7 @@ const AiReportButton = ({ month, hasProPlan }: AiReportButtonPorops) => {
         <DialogHeader>
           <DialogTitle>Relatório IA</DialogTitle>
           <DialogDescription>
-            {hasProPlan
+            {!hasProPlan
               ? "Use inteligência artificial para gerar um relatório com insights sobre suas finanças."
               : "Assine o plano Pro para conseguir gerar relatórios por IA"}
           </DialogDescription>
@@ -60,7 +60,7 @@ const AiReportButton = ({ month, hasProPlan }: AiReportButtonPorops) => {
           </DialogClose>
           <Button
             onClick={handleGenerateReportClick}
-            disabled={reportIsLoading || !hasProPlan}
+            disabled={reportIsLoading || hasProPlan}
           >
             {reportIsLoading && <Loader2Icon className="animated-spin" />}
             Gerar relatório
