@@ -9,6 +9,7 @@ import { getDashboard } from "../_actions/get-transaction-values";
 import LastTransactions from "../_components/last-transactions";
 import { canUserAddTransaction } from "../_actions/can-user-add-transaction";
 import AiReportButton from "../_components/ai-report-button";
+import { userHasProPlan } from "../_actions/userHasProPlan";
 
 interface HomeProps {
   searchParams: {
@@ -28,15 +29,13 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   }
   const dashboard = await getDashboard(month);
   const canUserCreateTransanction = await canUserAddTransaction();
+  const userHasPlan = await userHasProPlan();
   return (
     <div className="p-6">
       <div className="flex justify-between">
         <h1 className="mb-6 text-2xl">Dashboard</h1>
         <div className="flex gap-4">
-          <AiReportButton
-            month={month}
-            hasProPlan={canUserCreateTransanction}
-          />
+          <AiReportButton month={month} hasProPlan={userHasPlan} />
           <TimeSelect />
         </div>
       </div>
