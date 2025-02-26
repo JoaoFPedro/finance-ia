@@ -10,6 +10,7 @@ import LastTransactions from "../_components/last-transactions";
 import { canUserAddTransaction } from "../_actions/can-user-add-transaction";
 import AiReportButton from "../_components/ai-report-button";
 import { userHasProPlan } from "../_actions/userHasProPlan";
+import NoData from "../_components/no-data";
 
 interface HomeProps {
   searchParams: {
@@ -30,6 +31,12 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const dashboard = await getDashboard(month);
   const canUserCreateTransanction = await canUserAddTransaction();
   const userHasPlan = await userHasProPlan();
+
+  console.log("expensesTotal", dashboard.lastTransactions);
+
+  if (dashboard.lastTransactions.length === 0) {
+    return <NoData />;
+  }
   return (
     <div className="p-6">
       <div className="flex justify-between">

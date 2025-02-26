@@ -1,5 +1,6 @@
 "use client";
 import AddTransactionButton from "@/app/_components/add-transaction-button";
+import NoData from "@/app/_components/no-data";
 import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
 
 import { ReactNode } from "react";
@@ -22,7 +23,7 @@ const SummaryCard = ({
   canUserAddTransaction,
 }: SummaryCardProps) => {
   // const [dialogIsOpen, setdialogIsOpen] = useState(false);
-
+  console.log("amount***", amount);
   return (
     <>
       <Card className="bg-[#161716]">
@@ -42,14 +43,18 @@ const SummaryCard = ({
           </div>
         </CardHeader>
         <CardContent className="flex justify-between">
-          <p
-            className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"} ${color === "red" ? "text-red-500" : "text-white"}`}
-          >
-            {Intl.NumberFormat("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            }).format(amount)}
-          </p>
+          {amount <= 0 ? (
+            <NoData />
+          ) : (
+            <p
+              className={`font-bold ${size === "large" ? "text-4xl" : "text-xl"} ${color === "red" ? "text-red-500" : "text-white"}`}
+            >
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(amount)}
+            </p>
+          )}
           {size === "large" && (
             <AddTransactionButton
               totalMonthTransactions={canUserAddTransaction}
