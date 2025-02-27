@@ -32,7 +32,12 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const canUserCreateTransanction = await canUserAddTransaction();
   const userHasPlan = await userHasProPlan();
 
-  if (dashboard.lastTransactions.length === 0) {
+  if (
+    dashboard.lastTransactions.length === 0 &&
+    dashboard.depositTotal === 0 &&
+    dashboard.investmentTotal === 0 &&
+    dashboard.totalExpensePerCategory.length === 0
+  ) {
     return <NoData />;
   }
   return (
