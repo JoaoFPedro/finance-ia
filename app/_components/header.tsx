@@ -3,9 +3,8 @@ import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Link from "next/link";
-import ToggleThemeButton from "./toggleButton";
 import { usePathname } from "next/navigation";
-// import ToggleThemeButton from "./toggleButton";
+import ToggleThemeButton from "./toggleButton";
 
 const Header = () => {
   const pathName = usePathname();
