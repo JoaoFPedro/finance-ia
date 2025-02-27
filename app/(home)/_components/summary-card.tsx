@@ -22,7 +22,7 @@ const SummaryCard = ({
   canUserAddTransaction,
 }: SummaryCardProps) => {
   // const [dialogIsOpen, setdialogIsOpen] = useState(false);
-
+  console.log("amount***", amount);
   return (
     <>
       <Card className="bg-[#161716]">

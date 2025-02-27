@@ -55,6 +55,7 @@ const SummaryCards = ({
   ];
 
   console.log("SALDOTOTAL**", balanceTotalValue);
+
   return (
     <div className="space-y-6">
       <SummaryCard

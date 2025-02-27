@@ -28,7 +28,6 @@ const TransactionsPage = async () => {
   //   take: 10,
   // });
   const totalMonthTransactions = await canUserAddTransaction();
-  console.log("LASTRANSACTIONS***", totalMonthTransactions);
   return (
     <div className="space-y-6 p-4">
       <div className="flex justify-between">
