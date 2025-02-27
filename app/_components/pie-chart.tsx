@@ -27,7 +27,7 @@ const PieChartBalance = ({
     {
       type: TransactionsType.DEPOSIT,
       amount: depositTotal,
-      fill: "red",
+      fill: "green",
     },
     {
       type: TransactionsType.INVESTMENT,
@@ -37,12 +37,12 @@ const PieChartBalance = ({
     {
       type: TransactionsType.EXPENSE,
       amount: expensesTotal,
-      fill: "green",
+      fill: "red",
     },
   ];
   const chartConfig = {
     [TransactionsType.DEPOSIT]: {
-      label: "Despesas",
+      label: "Ganhos",
       color: "green",
     },
     [TransactionsType.INVESTMENT]: {
@@ -50,7 +50,7 @@ const PieChartBalance = ({
       color: "white",
     },
     [TransactionsType.EXPENSE]: {
-      label: "Depósito",
+      label: "Gastos",
       color: "red",
     },
   } satisfies ChartConfig;
