@@ -2,7 +2,6 @@ import { TrashIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Transactions } from "@prisma/client";
 import { deleteTransaction } from "../_actions/delete-transaction";
-import { Card } from "./ui/card";
 import {
   Dialog,
   DialogClose,
@@ -30,7 +29,7 @@ const DeleteTransactionButton = ({
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">
+          <Button className="text-muted-foreground" variant="ghost">
             <TrashIcon />
           </Button>
         </DialogTrigger>
@@ -55,8 +54,6 @@ const DeleteTransactionButton = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      <Card></Card>
     </div>
   );
 };
