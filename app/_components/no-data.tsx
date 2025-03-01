@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader } from "./ui/card";
 import AddTransactionButton from "./add-transaction-button";
 import TimeSelect from "./time-select";
-
-const NoData = () => {
+interface NoDataProps {
+  canUserAddTransaction: boolean;
+}
+const NoData = ({ canUserAddTransaction }: NoDataProps) => {
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center space-y-6 p-2">
@@ -19,7 +21,9 @@ const NoData = () => {
               altere o mês para visualizar as despesas desejadas.
             </p>
 
-            <AddTransactionButton />
+            <AddTransactionButton
+              totalMonthTransactions={canUserAddTransaction}
+            />
           </CardContent>
         </Card>
       </div>
