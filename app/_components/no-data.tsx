@@ -1,10 +1,26 @@
 import { Card, CardContent, CardHeader } from "./ui/card";
-import AddTransactionButton from "./add-transaction-button";
 import TimeSelect from "./time-select";
 interface NoDataProps {
-  canUserAddTransaction: boolean;
+  month: string;
 }
-const NoData = ({ canUserAddTransaction }: NoDataProps) => {
+const NoData = ({ month }: NoDataProps) => {
+  const MONTH_OPTIONS = [
+    { value: "01", label: "Janeiro" },
+    { value: "02", label: "Fevereiro" },
+    { value: "03", label: "Março" },
+    { value: "04", label: "Abril" },
+    { value: "05", label: "Maio" },
+    { value: "06", label: "Junho" },
+    { value: "07", label: "Julho" },
+    { value: "08", label: "Agosto" },
+    { value: "09", label: "Setembro" },
+    { value: "10", label: "Outubro" },
+    { value: "11", label: "Novembro" },
+    { value: "12", label: "Dezembro" },
+  ];
+  // Encontra o mês correspondente
+  const selectedMonth =
+    MONTH_OPTIONS.find((m) => m.value === month)?.label || "Desconhecido";
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center space-y-6 p-2">
@@ -17,13 +33,9 @@ const NoData = ({ canUserAddTransaction }: NoDataProps) => {
               </h2>
             </CardHeader>
             <p className="mb-5 mt-2">
-              Comece adicionando suas despesas para acompanhar suas finanças ou
-              altere o mês para visualizar as despesas desejadas.
+              Não foram encontradas transações para o mês:{" "}
+              <span className="font-bold text-green-500">{selectedMonth}</span>
             </p>
-
-            <AddTransactionButton
-              totalMonthTransactions={canUserAddTransaction}
-            />
           </CardContent>
         </Card>
       </div>
