@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader } from "./ui/card";
 import TimeSelect from "./time-select";
+import AddTransactionButton from "./add-transaction-button";
 interface NoDataProps {
   month: string;
+  totalMonthTransactions?: boolean;
 }
-const NoData = ({ month }: NoDataProps) => {
+const NoData = ({ month, totalMonthTransactions }: NoDataProps) => {
   const MONTH_OPTIONS = [
     { value: "01", label: "Janeiro" },
     { value: "02", label: "Fevereiro" },
@@ -20,7 +22,11 @@ const NoData = ({ month }: NoDataProps) => {
   ];
   // Encontra o mês correspondente
   const selectedMonth =
+    MONTH_OPTIONS.find((m) => m.value === month)?.value || 0;
+  const selectedMonthLong =
     MONTH_OPTIONS.find((m) => m.value === month)?.label || "Desconhecido";
+
+  const currentMonth = new Date().getMonth() + 1;
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center space-y-6 p-2">
@@ -34,8 +40,15 @@ const NoData = ({ month }: NoDataProps) => {
             </CardHeader>
             <p className="mb-5 mt-2">
               Não foram encontradas transações para o mês:{" "}
-              <span className="font-bold text-green-500">{selectedMonth}</span>
+              <span className="font-bold text-green-500">
+                {selectedMonthLong}
+              </span>
             </p>
+            {Number(selectedMonth) >= currentMonth && (
+              <AddTransactionButton
+                totalMonthTransactions={totalMonthTransactions}
+              />
+            )}
           </CardContent>
         </Card>
       </div>

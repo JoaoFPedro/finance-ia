@@ -38,7 +38,12 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
     dashboard.investmentTotal === 0 &&
     dashboard.totalExpensePerCategory.length === 0
   ) {
-    return <NoData month={month} />;
+    return (
+      <NoData
+        month={month}
+        totalMonthTransactions={canUserCreateTransanction}
+      />
+    );
   }
   return (
     <div className="p-6">
