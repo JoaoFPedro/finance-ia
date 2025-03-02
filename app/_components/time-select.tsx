@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "./ui/select";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 const TimeSelect = () => {
   const MONTH_OPTIONS = [
     { value: "01", label: "Janeiro" },
@@ -26,12 +26,17 @@ const TimeSelect = () => {
     { value: "12", label: "Dezembro" },
   ];
   const { push } = useRouter();
+  const searchParams = useSearchParams();
+  const month = searchParams.get("month");
   const onMonthChange = (month: string) => {
     push(`/?month=${month}`);
   };
   return (
     <>
-      <Select onValueChange={(value) => onMonthChange(value)}>
+      <Select
+        onValueChange={(value) => onMonthChange(value)}
+        defaultValue={month ?? ""}
+      >
         <SelectTrigger className="w-[100px] rounded-full font-bold">
           <SelectValue placeholder="Mês" />
         </SelectTrigger>
