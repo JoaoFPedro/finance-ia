@@ -112,3 +112,13 @@ export const TRANSACTIONS_PAYMENT_METHOD_ICONS = {
 
   OTHER: "icon.png",
 };
+
+export const TRANSACTION_PAYMENT_METHOD_ICONS = {
+  [TransactionsPaymentMethod.CREDIT_CARD]: "credit-card.svg",
+  [TransactionsPaymentMethod.DEBIT_CARD]: "debit-card.svg",
+  [TransactionsPaymentMethod.BANK_TRANSFER]: "bank-transfer.svg",
+  [TransactionsPaymentMethod.BANK_SLIP]: "bank-slip.svg",
+  [TransactionsPaymentMethod.CASH]: "money.svg",
+  [TransactionsPaymentMethod.PIX]: "pix.png",
+  [TransactionsPaymentMethod.OTHER]: "other.svg",
+};
