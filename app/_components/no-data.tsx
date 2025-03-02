@@ -25,7 +25,6 @@ const NoData = ({ month, totalMonthTransactions }: NoDataProps) => {
     MONTH_OPTIONS.find((m) => m.value === month)?.value || 0;
   const selectedMonthLong =
     MONTH_OPTIONS.find((m) => m.value === month)?.label || "Desconhecido";
-
   const currentMonth = new Date().getMonth() + 1;
   return (
     <>

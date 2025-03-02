@@ -16,7 +16,6 @@ const AddTransactionButton = (
     totalMonthTransactions.totalMonthTransactions;
 
   const [dialogIsOpen, setdialogIsOpen] = useState(false);
-
   return (
     <div>
       <Button
