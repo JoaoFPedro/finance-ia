@@ -37,9 +37,9 @@ const LastTransactions = ({
       transactions.paymentMethod === TransactionsPaymentMethod.CREDIT_CARD ||
       transactions.paymentMethod === TransactionsPaymentMethod.DEBIT_CARD
     ) {
-      return "crediCard.png";
+      return "credit-card.svg";
     }
-    return "bankTransfer.png";
+    return "bankTransfer.svg";
   };
 
   return (
