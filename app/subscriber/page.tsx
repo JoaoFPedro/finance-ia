@@ -45,7 +45,10 @@ const SubscriberPage = async () => {
                   <CheckIcon className="text-primary" />
                   <p className="text-xl">
                     {" "}
-                    Apenas 10 transações por mês {currentMonthTransactions}/10
+                    Apenas 10 transações por mês{" "}
+                    <span className="font-bold text-red-600">
+                      {currentMonthTransactions}/10
+                    </span>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
