@@ -1,8 +1,6 @@
 import { Card, CardContent, CardHeader } from "../_components/ui/card";
 
 const NoData = () => {
-  // Encontra o mês correspondente
-
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center space-y-6 p-2">
