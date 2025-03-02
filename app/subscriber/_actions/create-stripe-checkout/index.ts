@@ -17,7 +17,7 @@ export const createStripeCheckOut = async () => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "subscription",
-    success_url: "http://localhost:3000",
+    success_url: "https://finance-ia-liard.vercel.app/?month=1",
     cancel_url: "http://localhost:3000",
     subscription_data: {
       metadata: {
