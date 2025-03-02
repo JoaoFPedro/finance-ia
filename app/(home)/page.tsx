@@ -31,7 +31,6 @@ const Home = async ({ searchParams: { month } }: HomeProps) => {
   const dashboard = await getDashboard(month);
   const canUserCreateTransanction = await canUserAddTransaction();
   const userHasPlan = await userHasProPlan();
-
   if (
     dashboard.lastTransactions.length === 0 &&
     dashboard.depositTotal === 0 &&
