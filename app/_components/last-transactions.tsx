@@ -31,7 +31,7 @@ const LastTransactions = ({
       transactions.paymentMethod === TransactionsPaymentMethod.CASH ||
       transactions.paymentMethod === TransactionsPaymentMethod.PIX
     ) {
-      return "icon.png";
+      return "pix.svg";
     }
     if (
       transactions.paymentMethod === TransactionsPaymentMethod.CREDIT_CARD ||
@@ -63,7 +63,7 @@ const LastTransactions = ({
                   height={50}
                   width={50}
                   alt="PIX"
-                  className="bg-white bg-opacity-[2%]"
+                  className="h-8 w-8 bg-white bg-opacity-[2%]"
                 />
               </div>{" "}
               <div>
